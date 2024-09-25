@@ -3,7 +3,7 @@ import React, { useLayoutEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import BoardForm from '../components/BoardForm';
-import { register } from '../apis/register';
+import { regist } from '../apis/apiBoard';
 
 const UpdateContainer = ({ params }) => {
     const { bid } = params;
@@ -42,11 +42,11 @@ const UpdateContainer = ({ params }) => {
       }
 
       try {
-        await register(form);
+        await regist(form);
       } catch (err) {
         setErrors(err.message);
       }
-    }, [form, register]);
+    }, [form, regist]);
 
     const onChange = useCallback((e) => {
       setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
