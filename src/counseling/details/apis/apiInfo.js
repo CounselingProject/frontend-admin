@@ -9,10 +9,7 @@ export const apiList = (search) => {
     qs.push(`${k}=${v}`);
   }
 
-  let url = '/apply';
+  let url = '/admin/apply';
   if (qs.length > 0) url += `?${qs.join('&')}`;
   return requestData(url);
 };
-
-// 상세 조회
-export const apiGet = (rNo) => requestData(`/apply/${rNo}`);
