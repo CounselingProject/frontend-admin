@@ -1,28 +1,22 @@
-import apiRequest from '../../commons/libs/apiRequest';
-import cookies from 'react-cookies';
+import requestData from '@/commons/libs/requestData';
 
-/**
- * 회원 목록 조회 API 요청
- * @param {Object} searchParams - 페이지 번호, 한 페이지당 레코드 수, 검색 옵션, 검색 키워드 등을 포함한 검색 파라미터 객체
- * @returns {Promise} API 요청 결과를 Promise로 반환
- */
-export const apiGetMemberList = (searchParams) =>
-  new Promise((resolve, reject) => {
+// 회원 목록 조회 API
+export const apiGetMemberList = (search) => {
+  // 검색 조건이 없으면 빈 객체로 초기화
+  search = search ?? {};
 
-    // 검색 파라미터를 포함하여 API 요청
-    apiRequest('/member/admin', 'GET', null, searchParams)
-      .then((res) => {
-        if (res.status !== 200) {
-          // 검증 실패
-          reject(res.data);
-          return;
-        }
+  // 검색 조건을 쿼리 스트링 형식으로 변환
+  const qs = [];
 
-        // 성공적으로 데이터를 받았을 경우
-        resolve(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-        reject(err);
-      });
-  });
+  for (const [key, value] of Object.entries(search)) {
+    qs.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+  }
+
+  // 기본 URL 설정
+  let url = '/member/admin';
+  // 검색 조건이 있으면 URL에 쿼리 스트링을 추가
+  if (qs.length > 0) url += `?${qs.join('&')}`;
+
+  // requestData 함수를 사용하여 API 요청
+  return requestData(url);
+};

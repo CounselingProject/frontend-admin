@@ -1,51 +1,99 @@
 import React from 'react';
 import { useTranslation } from 'next-i18next';
+import styled from 'styled-components';
+
+// 스타일 컴포넌트 정의
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+`;
+
+const Thead = styled.thead`
+  background-color: #f1f1f1;
+`;
+
+const Th = styled.th`
+  padding: 12px;
+  border-bottom: 2px solid #ddd;
+  font-weight: bold;
+  text-align: left;
+`;
+
+const Td = styled.td`
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+`;
+
+const Tr = styled.tr`
+  &:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-weight: bold;
+`;
+
+const LoadingMessage = styled.div`
+  color: #007bff;
+  font-weight: bold;
+`;
 
 const MemberList = ({ memberList = [], loading, error }) => { // 기본 값을 빈 배열로 설정
-
   const { t } = useTranslation();
 
   // 로딩 중일 때 표시할 내용
   if (loading) {
-    return <div>로딩 중...</div>;
+    return <LoadingMessage>{t('로딩 중...')}</LoadingMessage>;
   }
 
   // 에러 발생 시 표시할 내용
   if (error) {
-    return <div>오류 발생: {error.message}</div>;
+    return <ErrorMessage>{t(`오류 발생: ${error.message}`)}</ErrorMessage>;
   }
 
   return (
-    <div>
+    <Wrapper>
       <h1>{t('회원 목록')}</h1> {/* '회원 목록' 텍스트 감싸기 */}
-      {/* 회원 목록을 테이블 형식으로 출력 */}
-      <table>
-        <thead>
-        <tr>
-          <th>{t('ID')}</th>
-          <th>{t('이름')}</th>
-          <th>{t('이메일')}</th>
-          <th>{t('가입일')}</th>
-        </tr>
-        </thead>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>{t('ID')}</Th>
+            <Th>{t('이름')}</Th>
+            <Th>{t('이메일')}</Th>
+            <Th>{t('가입일')}</Th>
+          </Tr>
+        </Thead>
         <tbody>
         {memberList.length > 0 ? (
           memberList.map((member) => (
-            <tr key={member.id}>
-              <td>{t(member.id)}</td>
-              <td>{t(member.name)}</td>
-              <td>{t(member.email)}</td>
-              <td>{t(member.joinDate)}</td>
-            </tr>
+            <Tr key={`member_${member.seq}`}>  {/* key 속성에 member.seq 사용 */}
+              <Td>{member.seq}</Td>
+              <Td>{member.userName}</Td>
+              <Td>{member.email}</Td>
+              <Td>{member.createdAt}</Td>
+            </Tr>
           ))
         ) : (
-          <tr>
-            <td colSpan="4">{t('회원 목록이 없습니다.')}</td>
-          </tr>
+          <Tr>
+            <Td colSpan="4">{t('회원 목록이 없습니다.')}</Td>
+          </Tr>
         )}
         </tbody>
-      </table>
-    </div>
+      </Table>
+    </Wrapper>
   );
 };
 
