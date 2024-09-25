@@ -1,9 +1,9 @@
 import ListContainer from '@/board/containers/ListContainer';
 import AdminOnlyContainer from '@/member/containers/AdminOnlyContainer';
-const BoardListPage = () => {
+const BoardListPage = ({ searchParams }) => {
   return (
     <AdminOnlyContainer>
-      <ListContainer />
+      <ListContainer searchParams={searchParams} />
     </AdminOnlyContainer>
   );
 };

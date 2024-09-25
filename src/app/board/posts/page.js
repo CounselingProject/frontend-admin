@@ -1,9 +1,9 @@
 import PostsContainer from '@/board/containers/PostsContainer';
 import AdminOnlyContainer from '@/member/containers/AdminOnlyContainer';
-const PostsPage = () => {
+const PostsPage = ({ searchParams }) => {
   return (
     <AdminOnlyContainer>
-      <PostsContainer />
+      <PostsContainer searchParams={searchParams} />
     </AdminOnlyContainer>
   );
 };
