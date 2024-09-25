@@ -4,69 +4,67 @@ import styled from 'styled-components';
 
 // 스타일 컴포넌트 정의
 const Wrapper = styled.div`
-  width: 100%;
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 `;
 
 const Thead = styled.thead`
-  background-color: #f1f1f1;
+    background-color: #f1f1f1;
 `;
 
 const Th = styled.th`
-  padding: 12px;
-  border-bottom: 2px solid #ddd;
-  font-weight: bold;
-  text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid #ddd;
+    font-weight: bold;
+    text-align: left;
 `;
 
 const Td = styled.td`
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
 `;
 
 const Tr = styled.tr`
-  &:nth-child(even) {
-    background-color: #f9f9f9;
-  }
+    &:nth-child(even) {
+        background-color: #f9f9f9;
+    }
 `;
 
 const ErrorMessage = styled.div`
-  color: red;
-  font-weight: bold;
+    color: red;
+    font-weight: bold;
 `;
 
 const LoadingMessage = styled.div`
-  color: #007bff;
-  font-weight: bold;
+    color: #007bff;
+    font-weight: bold;
 `;
 
-const MemberList = ({ memberList = [], loading, error }) => { // 기본 값을 빈 배열로 설정
+const MemberList = ({ memberList = [], loading, error, onEmailClick }) => {
   const { t } = useTranslation();
 
-  // 로딩 중일 때 표시할 내용
   if (loading) {
     return <LoadingMessage>{t('로딩 중...')}</LoadingMessage>;
   }
 
-  // 에러 발생 시 표시할 내용
   if (error) {
     return <ErrorMessage>{t(`오류 발생: ${error.message}`)}</ErrorMessage>;
   }
 
   return (
     <Wrapper>
-      <h1>{t('회원 목록')}</h1> {/* '회원 목록' 텍스트 감싸기 */}
+      <h1>{t('회원 목록')}</h1>
       <Table>
         <Thead>
           <Tr>
@@ -79,10 +77,12 @@ const MemberList = ({ memberList = [], loading, error }) => { // 기본 값을 �
         <tbody>
         {memberList.length > 0 ? (
           memberList.map((member) => (
-            <Tr key={`member_${member.seq}`}>  {/* key 속성에 member.seq 사용 */}
+            <Tr key={`member_${member.seq}`}>
               <Td>{member.seq}</Td>
               <Td>{member.userName}</Td>
-              <Td>{member.email}</Td>
+              <Td onClick={() => onEmailClick(member)} style={{ cursor: 'pointer', color: 'blue' }}>
+                {member.email}
+              </Td>
               <Td>{member.createdAt}</Td>
             </Tr>
           ))
