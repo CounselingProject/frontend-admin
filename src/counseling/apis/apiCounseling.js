@@ -13,7 +13,7 @@ export const registerGroupProgram = (form) =>
 export const updateGroupProgram = (form) =>
   saveProcess('/counseling/admin/counseling', 'PATCH', form);
 
-// 집단상담 프로그램 목록 조회
+// 집단상담 프로그램 목록
 export const getList = (search) => {
     search = search ?? {};
 

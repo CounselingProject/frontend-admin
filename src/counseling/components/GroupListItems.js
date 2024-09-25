@@ -3,17 +3,13 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
-const List = styled.div`
-  .group_item {
-  }
-`;
+
 
 const ListItem = ({ item, className }) => {
   console.log(item);
   return (
     <li className={className}>
       {/* 집단상담 프로그램번호 , 명 */}
-      
       <Link href={`/counseling/group/update/${item.cno}`}>
         {item.counselingName}
       </Link>
