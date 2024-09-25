@@ -5,6 +5,7 @@ import { StyledInput } from '@/commons/components/inputs/StyledInput';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import { useTranslation } from 'react-i18next';
 import FileUpload from '@/commons/components/FileUpload';
+import { IoIosRadioButtonOn, IoIosRadioButtonOff } from 'react-icons/io';
 import FileItems from '@/commons/components/FileItems';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import StyledMessage from '@/commons/components/StyledMessage';
@@ -39,15 +40,6 @@ const FormBox = styled.form`
       padding: 5px;
     }
   }
-
-  /* CKEditor 스타일 조정 */
-  .ck-editor {
-    border: 1px solid #ccc; /* CKEditor 테두리 */
-    border-radius: 4px; /* 둥근 모서리 */
-    padding: 10px; /* 패딩 추가 */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 음영 효과 */
-    margin-top: 5px; /* 레이블과 CKEditor 간 간격 */
-  }
 `;
 
 const GroupRegisterForm = ({
@@ -56,6 +48,8 @@ const GroupRegisterForm = ({
   onChange,
   onSubmit,
   onFileDelete,
+  counselors,
+  onClick,
 }) => {
   const { t } = useTranslation();
   const [editor, setEditor] = useState(null);
@@ -65,7 +59,6 @@ const GroupRegisterForm = ({
       if (!files || files.length === 0) {
         return;
       }
-
       const source = files.map((file) => file.fileUrl);
 
       editor.execute('insertImage', { source });
@@ -79,26 +72,24 @@ const GroupRegisterForm = ({
 
   return (
     <FormBox autoComplete="off" onSubmit={onSubmit}>
-      <dl>
-        <dt>{t('집단상담 프로그램번호')}</dt>
-        <dd>
-          <StyledInput
-            type="text"
-            name="cno"
-            value={form?.cno}
-            onChange={onChange}
-          />
-        </dd>
-      </dl>
+      {form?.cNo && (
+        <dl>
+          <dt>{t('집단상담 프로그램번호')}</dt>
+          <dd>{form.cNo}</dd>
+        </dl>
+      )}
       <dl>
         <dt>{t('집단상담 프로그램명')}</dt>
         <dd>
           <StyledInput
             type="text"
-            name="gname"
-            value={form?.counselingName}
+            name="counselingName"
+            value={form?.counselingName ?? ''}
             onChange={onChange}
           />
+             <StyledMessage variant="danger">
+            {errors?.counselingName}
+          </StyledMessage>
         </dd>
       </dl>
       <dl>
@@ -121,11 +112,11 @@ const GroupRegisterForm = ({
                 ImageInsert,
               ],
             }}
-            data={form?.gdes || ''}
+            data={form?.counselingDes ?? ''}
             onReady={(editor) => setEditor(editor)}
             onChange={(_, editor) => {
               onChange({
-                target: { name: 'gdes', value: editor.getData() },
+                target: { name: 'counselingDes', value: editor.getData() },
               });
             }}
           />
@@ -140,27 +131,48 @@ const GroupRegisterForm = ({
           {form?.editorImages && (
             <FileItems files={form.editorImages} onDelete={onFileDelete} />
           )}
+          <StyledMessage variant="danger">
+            {errors?.counselingDes}
+          </StyledMessage>
         </dd>
       </dl>
-      
+
       <dl>
         <dt>{t('상담사_선택')}</dt>
         <dd>
           <StyledInput
-          
+            type="text"
+            name="skey"
+            onChange={onChange}
+            placeholder={t('검색어를_입력하세요.')}
           />
+          {counselors &&
+            counselors.length > 0 &&
+            counselors.map((c) => (
+              <span key={c.seq} onClick={() => onClick(c)}>
+                {c.seq === form?.counselor?.seq ? (
+                  <IoIosRadioButtonOn />
+                ) : (
+                  <IoIosRadioButtonOff />
+                )}{' '}
+                {c.userName}({c.email}/{c.subject})
+              </span>
+            ))}
         </dd>
       </dl>
 
       <dl>
         <dt>{t('상담사명')}</dt>
         <dd>
-          <StyledInput
+        <StyledInput
             type="text"
-            name="cname"
-            value={form?.counselorName}
-            onChange={onChange}
+            name="counselorName"
+            value={form?.counselorName ?? ''}
+            readOnly
           />
+          <StyledMessage variant="danger">
+            {errors?.counselorName}
+          </StyledMessage>
         </dd>
       </dl>
       <dl>
@@ -168,56 +180,79 @@ const GroupRegisterForm = ({
         <dd>
           <StyledInput
             type="text"
-            name="cemail"
-            value={form?.counselorEmail}
-            onChange={onChange}
+            name="counselorEmail"
+            value={form?.counselorEmail ?? ''}
+            readOnly
           />
+           <StyledMessage variant="danger">
+            {errors?.counselorEmail}
+          </StyledMessage>
         </dd>
       </dl>
       <dl>
         <dt>{t('집단상담 프로그램 신청 시작일')}</dt>
         <dd>
-          <StyledInput
+        <StyledInput
             type="date"
-            name="sdate"
-            value={form?.reservationSdate}
+            name="reservationSdate"
+            value={form?.reservationSdate ?? ''}
             onChange={onChange}
           />
         </dd>
+        <StyledMessage variant="danger">
+          {errors?.reservationSdate}
+        </StyledMessage>
       </dl>
       <dl>
         <dt>{t('집단상담 프로그램 신청 종료일')}</dt>
         <dd>
           <StyledInput
             type="date"
-            name="edate"
-            value={form?.reservationEdate}
+            name="reservationEdate"
+            value={form?.reservationEdate ?? ''}
             onChange={onChange}
           />
+          <StyledMessage variant="danger">
+            {errors?.reservationEdate}
+          </StyledMessage>
         </dd>
       </dl>
       <dl>
         <dt>{t('상담일시')}</dt>
-        <dd>
+          <dd>
           <StyledInput
-            type="date"
-            name="date"
-            value={form.counselingDate ?? ''}
+            type="text"
+            name="counselingDate"
+            value={form?.counselingDate ?? ''}
             onChange={onChange}
           />
+          <StyledMessage variant="danger">
+            {errors?.counselingDate}
+          </StyledMessage>
         </dd>
       </dl>
+
       <dl>
         <dt>{t('인원')}</dt>
         <dd>
-          <select name="counselingLimit">
-          
+          <select
+            name="counselingLimit"
+            onChange={onChange}
+            value={form?.counselingLimit ?? 1}
+          >  {/* 인원 10명 제한 - 1명이상 인원부터 받을 수 있게 */}
+            {[...new Array(10).keys()].map((i) => (
+              <option key={`counselingLimit_${i + 1}`} value={i + 1}>{`${
+                i + 1
+              }명`}</option>
+            ))}
           </select>
-         
+          <StyledMessage variant="danger">
+            {errors?.counselingLimit}
+          </StyledMessage>
         </dd>
       </dl>
       <StyledButton variant="primary">{t('등록')}</StyledButton>
-  <StyledMessage variant="danger">{errors.global}</StyledMessage>
+      <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
 };

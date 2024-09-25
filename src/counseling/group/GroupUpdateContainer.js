@@ -5,15 +5,19 @@ import React, {
   useState,
   useCallback,
 } from 'react';
+import { useRouter } from 'next/navigation';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { useTranslation } from 'react-i18next';
 import GroupRegisterForm from '../components/GroupRegisterForm';
 import { deleteFile } from '@/commons/libs/apiFile';
+import { getCounselors,registerGroupProgram, updateGroupProgram } from '../apis/apiCounseling';
 
 const GroupUpdateContainer = ({ params }) => {
   const { setMenuCode, setSubMenuCode, setMainTitle } = getCommonActions();
   const { cNo } = params;
   const { t } = useTranslation();
+  
+  const router = useRouter();
 
   useLayoutEffect(() => {
     setMenuCode('counseling');
@@ -25,11 +29,33 @@ const GroupUpdateContainer = ({ params }) => {
 
   const [form, setForm] = useState({
     gid: '' + Date.now(),
+    counselingLimit: 1, // 인원수 1명이상
   });
   const [errors, setErrors] = useState({});
+  const [counselors, setCounselors] = useState([]);
+  const [skey, setSkey] = useState(''); // 상담사 검색키
+
+  useEffect(() => {
+    (async () => {
+      try {
+        // 상담사 조회
+        const counselors = await getCounselors(skey);
+        setCounselors(counselors);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, [skey]);
 
   const onChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+    const name = e.target.name;
+    const value = e.target.value;
+
+    if (name === 'skey') {
+      setSkey(value);
+    } else {
+      setForm((form) => ({ ...form, [name]: value }));
+    }
   }, []);
 
   const onSubmit = useCallback(
@@ -38,9 +64,10 @@ const GroupUpdateContainer = ({ params }) => {
 
       // 유효성 검사
       const requiredFields = {
-        gno: t('프로그램_번호를_입력하세요'),
-        gname: t('프로그램명을_입력해주세요'),
-        gdes: t('설명을_입력하세요'),
+        counselingName: t('프로그램명을_입력해주세요.'),
+        counselingDes: t('설명을_입력하세요.'),
+        counselorName: t('상담사를_선택하세요.'),
+        counselorEmail: t('상담사를_선택하세요.'),
       };
       const _errors = {};
       let hasErrors = false;
@@ -52,12 +79,29 @@ const GroupUpdateContainer = ({ params }) => {
         }
       }
 
+      setErrors(_errors);
       if (hasErrors) {
-        setErrors(_errors);
         return;
       }
+
+      // 추가, 수정 처리
+      (async () => {
+        try {
+          cNo
+            ? await updateGroupProgram(form)
+            : await registerGroupProgram(form);
+
+          router.replace('/counseling/group');
+        } catch (err) {
+          const message = err.message;
+          setErrors(
+            typeof message === 'string' ? { global: [message] } : message,
+          );
+          console.error(err);
+        }
+      })();
     },
-    [form, t],
+    [form, cNo, router, t],
   );
 
   const onFileDelete = useCallback(
@@ -85,13 +129,14 @@ const GroupUpdateContainer = ({ params }) => {
     [form, t],
   );
 
-const onClick = useCallback((counselor) => {
-  setForm(form => ({
-    ...form, counselorName: counselor.userName,
-    counselorEmail: counselor.email,
-    counselor,
-  }))
-})
+  const onClick = useCallback((counselor) => {
+    setForm((form) => ({
+      ...form,
+      counselorName: counselor.userName,
+      counselorEmail: counselor.email,
+      counselor,
+    }));
+  }, []);
 
   return (
     <GroupRegisterForm
@@ -101,6 +146,7 @@ const onClick = useCallback((counselor) => {
       onSubmit={onSubmit}
       onFileDelete={onFileDelete}
       onClick={onClick}
+      counselors={counselors}
     />
   );
 };
