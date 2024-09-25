@@ -1,13 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import SearchForm from './SearchForm';
 import Link from 'next/link';
-
-const exampleBoardData = [
-  { bid: 'counselingboard', bName: '상담 게시판', active: true, listOrder: 0 },
-  { bid: 'reviewboard', bName: '상담 일지', active: true, listOrder: 1 },
-  { bid: 'noticeboard', bName: '공지사항', active: true, listOrder: 2 },
-];
 
 const StyledTable = styled.table`
   width: 100%;
@@ -63,36 +56,9 @@ const StyledTd = styled.td`
   }
 `;
 
-const BoardList = ({ searchParams: initialSearchParams }) => {
-  const [searchParams, setSearchParams] = useState(initialSearchParams);
-  const [boardData, setBoardData] = useState(exampleBoardData);
-
-  const handleSearch = (searchData) => {
-    const { sopt, skey } = searchData;
-    setSearchParams(searchData);
-
-    const filteredData = exampleBoardData.filter((board) => {
-      if (sopt === 'ALL') {
-        return Object.values(board).some((value) =>
-          String(value).toLowerCase().includes(skey.toLowerCase())
-        );
-      }
-      return String(board[sopt]).toLowerCase().includes(skey.toLowerCase());
-    });
-
-    setBoardData(filteredData);
-  };
-
-  const handleDelete = (bid) => {
-    if (window.confirm(`${bid} 게시글을 정말 삭제하시겠습니까?`)) {
-      setBoardData((prevData) => prevData.filter((board) => board.bid !== bid));
-      console.log(`게시글 ${bid} 삭제 완료`);
-    }
-  };
-
+const BoardList = ({ items, onDelete }) => {
   return (
     <div>
-      <SearchForm onSearch={handleSearch} searchParams={searchParams} />
       <StyledTable>
         <StyledThead>
           <tr>
@@ -104,20 +70,21 @@ const BoardList = ({ searchParams: initialSearchParams }) => {
           </tr>
         </StyledThead>
         <tbody>
-          {boardData.length > 0 ? (
-            boardData.map((board) => (
-              <tr key={board.bid}>
-                <StyledTd>{board.bid}</StyledTd>
-                <StyledTd>{board.bName}</StyledTd>
-                <StyledTd>{board.active ? '사용' : '사용안함'}</StyledTd>
-                <StyledTd>{board.listOrder}</StyledTd>
+          {items && items.length > 0 ? (
+            items.map(({ bid, bname, active, listOrder }) => (
+              <tr key={bid}>
+                <StyledTd>{bid}</StyledTd>
+                <StyledTd>{bname}</StyledTd>
+                <StyledTd>{active ? '사용' : '사용안함'}</StyledTd>
+                <StyledTd>{listOrder}</StyledTd>
                 <StyledTd>
-                  <Link href={`/board/update/${board.bid}`} passHref>
+                  <Link href={`/board/update/${bid}`} passHref>
                     <button className="edit">수정</button>
                   </Link>
                   <button
+                    type="button"
                     className="delete"
-                    onClick={() => handleDelete(board.bid)}
+                    onClick={() => onDelete(bid)}
                   >
                     삭제
                   </button>
@@ -126,7 +93,7 @@ const BoardList = ({ searchParams: initialSearchParams }) => {
             ))
           ) : (
             <tr>
-              <StyledTd colSpan="5">조회된 게시글이 없습니다.</StyledTd>
+              <StyledTd colSpan="5">조회된 게시판이 없습니다.</StyledTd>
             </tr>
           )}
         </tbody>

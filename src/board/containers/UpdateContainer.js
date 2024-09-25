@@ -4,26 +4,49 @@ import { useTranslation } from 'react-i18next';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import BoardForm from '../components/BoardForm';
 import { regist } from '../apis/apiBoard';
+import { useRouter } from 'next/navigation';
 
 const UpdateContainer = ({ params }) => {
-    const { bid } = params;
-    const { t } = useTranslation();
-    const { setMenuCode, setSubMenuCode, setMainTitle } = getCommonActions();
-    const [form, setForm] = useState({});
-    const [errors, setErrors] = useState({});
+  const { bid } = params;
+  const { t } = useTranslation();
+  const { setMenuCode, setSubMenuCode, setMainTitle } = getCommonActions();
+  const router = useRouter();
 
-    useLayoutEffect(() => {
-      setMenuCode('board');
-      setSubMenuCode('register');
-      setMainTitle(bid ? t('게시판_수정') : t('게시판_등록'));
-    }, [setSubMenuCode, setMenuCode, setMainTitle, t, bid]);
+  const [form, setForm] = useState({
+    active: false,
+    rowsPerPage: 20,
+    pageCountPc: 10,
+    pageCountMobile: 5,
+    useReply: false,
+    useComment: false,
+    useEditor: false,
+    useUploadImage: false,
+    useUploadFile: false,
+    locationAfterWriting: 'list',
+    showListBelowView: false,
+    skin: 'default',
+    listAccessType: 'ALL',
+    viewAccessType: 'ALL',
+    writeAccessType: 'ALL',
+    replyAccessType: 'ALL',
+    commentAccessType: 'ALL',
+    privateAccess: false,
+  });
+  const [errors, setErrors] = useState({});
 
-    const onSubmit = useCallback(async (e) => {
+  useLayoutEffect(() => {
+    setMenuCode('board');
+    setSubMenuCode('register');
+    setMainTitle(bid ? t('게시판_수정') : t('게시판_등록'));
+  }, [setSubMenuCode, setMenuCode, setMainTitle, t, bid]);
+
+  const onSubmit = useCallback(
+    async (e) => {
       e.preventDefault();
 
       const requiredFields = {
         bid: t('게시판_ID를_입력하세요'),
-        bName: t('게시판_이름을_입력하세요'),
+        bname: t('게시판_이름을_입력하세요'),
       };
 
       const _errors = {};
@@ -43,28 +66,32 @@ const UpdateContainer = ({ params }) => {
 
       try {
         await regist(form);
+        router.replace('/board/list');
       } catch (err) {
+        console.error(err);
         setErrors(err.message);
       }
-    }, [form, regist]);
+    },
+    [form, router, t],
+  );
 
-    const onChange = useCallback((e) => {
-      setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
-    }, []);
+  const onChange = useCallback((e) => {
+    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+  }, []);
 
-    const onToggle = useCallback((name, value) => {
-      setForm((form) => ({ ...form, [name]: value }));
-    }, []);
+  const onToggle = useCallback((name, value) => {
+    setForm((form) => ({ ...form, [name]: value }));
+  }, []);
 
-    return (
-      <BoardForm
-        form={form}
-        errors={errors}
-        onChange={onChange}
-        onToggle={onToggle}
-        onSubmit={onSubmit}
-      />
-    );
+  return (
+    <BoardForm
+      form={form}
+      errors={errors}
+      onChange={onChange}
+      onToggle={onToggle}
+      onSubmit={onSubmit}
+    />
+  );
 };
 
 export default React.memo(UpdateContainer);
