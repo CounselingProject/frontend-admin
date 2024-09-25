@@ -29,7 +29,7 @@ function saveProcess(url, method, form) {
 // 게시글 하나 조회
 export const getInfo = (seq) => requestData(`/board/info/${seq}`);
 
-// 게시글 목록 조회
+// 게시글 목록 조회 
 export const getList = (bid, search) => {
   search = search ?? {};
   let qs = Object.entries(search)
