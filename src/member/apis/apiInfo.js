@@ -20,3 +20,17 @@ export const apiGetMemberList = (search) => {
   // requestData 함수를 사용하여 API 요청
   return requestData(url);
 };
+
+// 회원 한명 조회 API
+export const apiGetMemberInfo = (email) => {
+  // 이메일이 제공되지 않으면 에러 처리
+  if (!email) {
+    throw new Error("이메일은 필수 입력입니다.");
+  }
+
+  // 기본 URL 설정
+  const url = `/info/${encodeURIComponent(email)}`;
+
+  // requestData 함수를 사용하여 API 요청
+  return requestData(url);
+};

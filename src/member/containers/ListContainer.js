@@ -37,7 +37,7 @@ const ListContainer = () => {
         const data = await apiGetMemberList(searchParams);
         setMemberList(data.items); // 받은 데이터에서 회원 목록 설정
         setPagination(data.pagination); // 페이지네이션 정보 설정
-        console.log(data.items);
+        //console.log(data.items);
       } catch (err) {
         console.error('회원 목록 조회 오류:', err);
         setError(err); // 오류 발생 시 에러 상태 설정
