@@ -1,16 +1,4 @@
 'use client';
-<<<<<<< HEAD
-import React, { useLayoutEffect} from 'react';
-import { getCommonActions } from '@/commons/contexts/CommonContext';
-const ListContainer = () => {
-    const { setMenuCode, setSubMenuCode } = getCommonActions();
-    useLayoutEffect(() => {
-        setMenuCode("board");
-        setSubMenuCode("list");
-    }, [setSubMenuCode, setMenuCode]);
-    
-  return <h1>게시판 목록</h1>;
-=======
 import React, {
   useLayoutEffect,
   useEffect,
@@ -98,7 +86,7 @@ const ListContainer = ({ searchParams }) => {
       )}
     </section>
   );
->>>>>>> master
+
 };
 
 export default React.memo(ListContainer);

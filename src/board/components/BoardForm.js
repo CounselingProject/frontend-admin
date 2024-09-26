@@ -1,20 +1,5 @@
 'use client';
 import React from 'react';
-<<<<<<< HEAD
-import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
-
-const FormBox = styled.form``;
-
-const BoardForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
-  const { t } = useTranslation();
-  return (
-    <FormBox onSubmit={onSubmit} autoComplete="off">
-      <dl>
-        <dt>{t('게시판_아이디')}</dt>
-        <dd></dd>
-      </dl>
-=======
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { StyledInput } from '@/commons/components/inputs/StyledInput';
@@ -583,7 +568,7 @@ const BoardForm = ({ form, errors, onSubmit, onChange }) => {
       <GroupButton type="submit">
         {form?.mode === 'update' ? t('수정하기') : t('등록하기')}
       </GroupButton>
->>>>>>> master
+
     </FormBox>
   );
 };
