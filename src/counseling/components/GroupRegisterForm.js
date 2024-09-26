@@ -24,25 +24,34 @@ import {
 
 import 'ckeditor5/ckeditor5.css';
 
+
 const FormBox = styled.form`
+  max-width: 900px; 
+  padding: 20px;
+  background-color: #f9f9f9; 
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  
   dl {
     display: flex;
+    flex-wrap: wrap; 
     align-items: center;
     margin-bottom: 15px;
 
     dt {
-      width: 200px;
+      width: 30%; 
       font-weight: bold;
+      font-size: 1rem;
     }
 
     dd {
       flex-grow: 1;
       max-width: 100%;
       padding: 5px;
+      width: 70%; 
     }
   }
-`
-
+`;
 
 const GroupRegisterForm = ({
   form,
