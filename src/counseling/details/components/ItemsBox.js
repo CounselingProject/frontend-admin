@@ -119,19 +119,17 @@ const ItemBox = ({ item, className, onChange, onChangeStatus }) => {
             <select name="status" onChange={onChange}>
               <option value="">
                 {(item?.status === 'APPLY' && status.APPLY) ||
-                  (item?.status === 'CONFIRM' && status.CONFIRM) ||
                   (item?.status === 'CANCEL' && status.CANCEL) ||
                   (item?.status === 'DONE' && status.DONE)}
               </option>
               <option value="APPLY">{status.APPLY}</option>
-              <option value="CONFIRM">{status.CONFIRM}</option>
               <option value="CANCEL">{status.CANCEL}</option>
               <option value="DONE">{status.DONE}</option>
             </select>
           </td>
           <td>
             <StatusButtonWrapper>
-                {item && ['APPLY', 'CONFIRM', 'CANCEL', 'DONE'].includes(item.status) && (
+                {item && ['APPLY', 'CANCEL', 'DONE'].includes(item.status) && (
                   <button type="button" onClick={() => onChangeStatus(item.rNo)}>
                     {t('상태변경')}
                   </button>
