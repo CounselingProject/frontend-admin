@@ -171,7 +171,6 @@ const GroupRegisterForm = ({
         <dt>{t('상담사명')}</dt>
         <dd>
         <StyledInput
-
             type="text"
             name="counselorName"
             value={form?.counselorName ?? ''}
