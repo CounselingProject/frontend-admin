@@ -565,7 +565,9 @@ const BoardForm = ({ form, errors, onSubmit, onChange }) => {
         </tbody>
       </StyledTable>
 
-      <GroupButton type="submit">{t('등록')}</GroupButton>
+      <GroupButton type="submit">
+        {form?.mode === 'update' ? t('수정하기') : t('등록하기')}
+      </GroupButton>
     </FormBox>
   );
 };

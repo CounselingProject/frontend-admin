@@ -56,6 +56,8 @@ const StyledTd = styled.td`
   }
 `;
 
+const clientUrl = process.env.NEXT_PUBLIC_CLIENT_URL;
+
 const BoardList = ({ items, onDelete }) => {
   return (
     <div>
@@ -79,7 +81,9 @@ const BoardList = ({ items, onDelete }) => {
                 <StyledTd>{listOrder}</StyledTd>
                 <StyledTd>
                   <Link href={`/board/update/${bid}`} passHref>
-                    <button className="edit">수정</button>
+                    <button type="button" className="edit">
+                      수정
+                    </button>
                   </Link>
                   <button
                     type="button"
@@ -88,6 +92,11 @@ const BoardList = ({ items, onDelete }) => {
                   >
                     삭제
                   </button>
+                  <a href={`${clientUrl}/board/list/${bid}`} target="_blank">
+                    <button type="button" className="edit">
+                      미리보기
+                    </button>
+                  </a>
                 </StyledTd>
               </tr>
             ))
