@@ -1,13 +1,14 @@
 'use client';
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { format } from 'date-fns';
+import { format, addHours } from 'date-fns';
 import styled from 'styled-components';
 import counselingTypes from '../../constants/counselingType';
 import personalCategory from '../../constants/personalCategory';
 import statuses from '../../constants/status';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import Modal from '@/commons/components/Modal';
+
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -73,7 +74,7 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
   return (
     <>
       <FormBox onSubmit={onSubmit} autoComplete="off">
-        <StyledTable className={className}>
+        <StyledTable>
           <StyledThead>
             <tr>
               <StyledTh>신청번호</StyledTh>
@@ -105,45 +106,54 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                     record,
                   },
                   i,
-                ) => (
-                  <tr key={`item_${rno}`}>
-                    <StyledTd>{rno}</StyledTd>
-                    <StyledTd>{format(rDateTime, 'yyyy.MM.dd')}</StyledTd>
-                    <StyledTd>{format(rDateTime, 'HH:mm')}~</StyledTd>
-                    <StyledTd>{userName}</StyledTd>
-                    <StyledTd>
-                    {counselingType
-                        ? counselingTypes.GROUP
-                        : counselingTypes.PERSONAL}
-                    </StyledTd>
-                    <StyledTd>
-                      {category && personalCategory[category]}
-                    </StyledTd>
-                    <StyledTd>{counselingName}</StyledTd>
-                    <StyledTd>
-                      {counselorName}({counselorEmail})
-                    </StyledTd>
-                    <StyledTd>
-                      <select
-                        value={status}
-                        onChange={(e) => onChangeStatus(e, rno)}
-                      >
-                        {Object.keys(statuses).map((s) => (
-                          <option key={`status_${i}_${s}`} value={s}>
-                            {statuses[s]}
-                          </option>
-                        ))}
-                      </select>
-                    </StyledTd>
-                    <StyledTd>
-                      {record && (
-                        <button type="button" className="record" onClick={() => onRecord(record)}>
-                          {t('조회')}
-                        </button>
-                      )}
-                    </StyledTd>
-                  </tr>
-                ),
+                ) => {
+                  const endTime = addHours(rDateTime, 1); // 1시간 더한 종료시간 계산
+                  return (
+                    <tr key={`item_${rno}`}>
+                      <StyledTd>{rno}</StyledTd>
+                      <StyledTd>{format(rDateTime, 'yyyy.MM.dd')}</StyledTd>
+                      <StyledTd>
+                        {format(rDateTime, 'HH:mm')}~{format(endTime, 'HH:mm')}
+                      </StyledTd>
+                      <StyledTd>{userName}</StyledTd>
+                      <StyledTd>
+                        {counselingType
+                          ? counselingTypes.GROUP
+                          : counselingTypes.PERSONAL}
+                      </StyledTd>
+                      <StyledTd>
+                        {category && personalCategory[category]}
+                      </StyledTd>
+                      <StyledTd>{counselingName}</StyledTd>
+                      <StyledTd>
+                        {counselorName}({counselorEmail})
+                      </StyledTd>
+                      <StyledTd>
+                        <select
+                          value={status}
+                          onChange={(e) => onChangeStatus(e, rno)}
+                        >
+                          {Object.keys(statuses).map((s) => (
+                            <option key={`status_${i}_${s}`} value={s}>
+                              {statuses[s]}
+                            </option>
+                          ))}
+                        </select>
+                      </StyledTd>
+                      <StyledTd>
+                        {record && (
+                          <button
+                            type="button"
+                            className="record"
+                            onClick={() => onRecord(record)}
+                          >
+                            {t('조회')}
+                          </button>
+                        )}
+                      </StyledTd>
+                    </tr>
+                  );
+                },
               )
             ) : (
               <tr>
@@ -152,7 +162,7 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
             )}
           </tbody>
         </StyledTable>
-        <StyledButton type="submit" variant="primary">
+        <StyledButton type="submit" variant="green" width="100%">
           {t('변경하기')}
         </StyledButton>
       </FormBox>

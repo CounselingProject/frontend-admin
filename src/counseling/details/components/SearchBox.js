@@ -161,7 +161,7 @@ const SearchBox = ({ search, onChange, onSubmit, onToggle }) => {
           onChange={onChange}
         />
       </InputWrapper>
-      <StyledButton type="submit" variant="primary">
+      <StyledButton type="submit" variant="green">
         {t('검색')}
       </StyledButton>
     </FormBox>

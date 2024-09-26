@@ -8,7 +8,7 @@ export const StyledButton = styled.button`
     height = height ?? '38px';
     return css`
       color: #fff;
-      background-color: ${theme.colors.green};
+      background-color: ${theme.colors[variant]};
       border: ${border};
       font-size: ${theme.fontSizes[size] || '14px'};
       width: ${width};
