@@ -1,9 +1,14 @@
 'use client';
-import React, { useLayoutEffect, useState, useCallback } from 'react';
+import React, {
+  useLayoutEffect,
+  useState,
+  useCallback,
+  useEffect,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import BoardForm from '../components/BoardForm';
-import { regist } from '../apis/apiBoard';
+import { regist, update, getBoard } from '../apis/apiBoard';
 import { useRouter } from 'next/navigation';
 
 const UpdateContainer = ({ params }) => {
@@ -13,6 +18,7 @@ const UpdateContainer = ({ params }) => {
   const router = useRouter();
 
   const [form, setForm] = useState({
+    mode: 'register',
     active: false,
     rowsPerPage: 20,
     pageCountPc: 10,
@@ -32,6 +38,7 @@ const UpdateContainer = ({ params }) => {
     commentAccessType: 'ALL',
     privateAccess: false,
   });
+
   const [errors, setErrors] = useState({});
 
   useLayoutEffect(() => {
@@ -39,6 +46,22 @@ const UpdateContainer = ({ params }) => {
     setSubMenuCode('register');
     setMainTitle(bid ? t('게시판_수정') : t('게시판_등록'));
   }, [setSubMenuCode, setMenuCode, setMainTitle, t, bid]);
+
+  useEffect(() => {
+    if (bid) {
+      (async () => {
+        try {
+          const data = await getBoard(bid);
+          if (data) {
+            data.mode = 'update';
+            setForm(data);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      })();
+    }
+  }, [bid]);
 
   const onSubmit = useCallback(
     async (e) => {
@@ -65,7 +88,11 @@ const UpdateContainer = ({ params }) => {
       }
 
       try {
-        await regist(form);
+        if (bid) {
+          await update(form);
+        } else {
+          await regist(form);
+        }
         router.replace('/board/list');
       } catch (err) {
         console.error(err);

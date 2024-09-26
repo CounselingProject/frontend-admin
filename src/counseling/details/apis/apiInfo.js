@@ -9,7 +9,7 @@ export const apiList = (search) => {
     qs.push(`${k}=${v}`);
   }
 
-  let url = '/admin/apply';
+  let url = '/counseling/admin/apply';
   if (qs.length > 0) url += `?${qs.join('&')}`;
   return requestData(url);
 };

@@ -1,28 +1,8 @@
-import apiRequest from '../../commons/libs/apiRequest';
 import requestData from '../../commons/libs/requestData';
-
+import saveProcess from '@/commons/libs/saveProcess';
 export const regist = (form) => saveProcess(`/board/admin/save`, 'POST', form);
 
 export const update = (form) => saveProcess(`/board/admin/save`, 'PATCH', form);
-
-function saveProcess(url, method, form) {
-  return new Promise((resolve, reject) => {
-    (async () => {
-      try {
-        const res = await apiRequest(url, method, form);
-        if (res.status === 201) {
-          resolve(res.data.data);
-          return;
-        }
-
-        reject(res.data);
-      } catch (err) {
-        console.error(err);
-        reject(err);
-      }
-    })();
-  });
-}
 
 // 게시판 조회
 export const getBoardList = (search) => {
@@ -37,6 +17,9 @@ export const getBoardList = (search) => {
 
   return requestData(url);
 };
+
+// 게시판 설정 하나 조회
+export const getBoard = (bid) => requestData(`/board/admin/info/${bid}`);
 
 export const deleteBoard = (bid) =>
   requestData(`/board/admin/delete/${bid}`, 'DELETE');

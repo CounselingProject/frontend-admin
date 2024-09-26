@@ -8,7 +8,7 @@ import React, {
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { apiList } from '../apis/apiInfo';
 import apiStatus from '../apis/apiStatus';
-import ItemsBox from '../components/ItemsBox';
+import ApplicationList from '../components/ApplicationList';
 import SearchBox from '../components/SearchBox';
 import Pagination from '../../../commons/components/Pagination';
 import { useTranslation } from 'react-i18next';
@@ -33,21 +33,7 @@ const ApplicationListContainer = ({ params, searchParams }) => {
     sopt: 'ALL',
     page: 1,
   });
-  const [items, setItems] = useState([
-    {
-      rNo: 1,
-      status: 'CANCEL',
-      counselingType: 'PERSONAL',
-      category: 'EMPLOYMENT',
-      counselingName: '상담명',
-      counselorName: '교수명',
-      counselorEmail: 'user99@test.org',
-      userName: '학생명',
-      email: 'user01@test.org',
-      rDateTime: '2024-09-24 14:00:00',
-      record: '상담일지',
-    },
-  ]);
+  const [items, setItems] = useState([]);
   const [pagination, setPagination] = useState({});
   const { rNo } = params;
 
@@ -102,7 +88,7 @@ const ApplicationListContainer = ({ params, searchParams }) => {
         try {
           const res = await apiStatus(rNo);
           setItems((items) =>
-            items.map((item) => (item.rNo === rNo ? res : item)),
+            items.map((items) => (items.rNo === rNo ? res : items)),
           );
         } catch (err) {
           console.error(err);
@@ -124,8 +110,8 @@ const ApplicationListContainer = ({ params, searchParams }) => {
         onSubmit={onSubmitSearch}
         onToggle={onToggle}
       />
-      <ItemsBox items={items} onChangeStatus={onChangeStatus} />
-      {items?.length > 0 && (
+      <ApplicationList items={items} onChangeStatus={onChangeStatus} />
+      {pagination && (
         <Pagination onClick={onChangePage} pagination={pagination} />
       )}
     </>
