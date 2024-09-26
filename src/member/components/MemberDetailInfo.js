@@ -38,7 +38,8 @@ const MemberDetailInfo = ({ member, onClose }) => {
           <>
             <p>{t('학번')}: {member.stdntNo}</p>
             <p>{t('학년')}: {member.grade}</p>
-            <p>{t('지도교수')}: {member.professor}</p>
+            {/* professor가 객체일 경우 userName 속성만 출력 */}
+            <p>{t('지도교수')}: {member.professor?.userName || t('정보 없음')}</p>
           </>
         )}
         {member.userType === 'COUNSELOR' && (
