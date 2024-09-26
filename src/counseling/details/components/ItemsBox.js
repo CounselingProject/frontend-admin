@@ -103,9 +103,9 @@ const ItemBox = ({ item, className, onChange, onChangeStatus }) => {
           </td>
           <td className="userName">{item?.userName}</td>
           <td className="counselingType">
-            {item?.counselingType === 'PERSONAL'
-              ? counselingType.PERSONAL
-              : counselingType.GROUP}
+            {item?.counselingType === 'GROUP'
+              ? counselingType.GROUP
+              : counselingType.PERSONAL}
           </td>
           <td className="category">
             {item?.category === 'PROFESSOR' && personalCategory.PROFESSOR}
@@ -119,24 +119,22 @@ const ItemBox = ({ item, className, onChange, onChangeStatus }) => {
             <select name="status" onChange={onChange}>
               <option value="">
                 {(item?.status === 'APPLY' && status.APPLY) ||
-                  (item?.status === 'CONFIRM' && status.CONFIRM) ||
                   (item?.status === 'CANCEL' && status.CANCEL) ||
                   (item?.status === 'DONE' && status.DONE)}
               </option>
               <option value="APPLY">{status.APPLY}</option>
-              <option value="CONFIRM">{status.CONFIRM}</option>
               <option value="CANCEL">{status.CANCEL}</option>
               <option value="DONE">{status.DONE}</option>
             </select>
           </td>
           <td>
             <StatusButtonWrapper>
-                {item && ['APPLY', 'CONFIRM', 'CANCEL', 'DONE'].includes(item.status) && (
-                  <button type="button" onClick={() => onChangeStatus(item.rNo)}>
-                    {t('상태변경')}
-                  </button>
-                )}
-              </StatusButtonWrapper>
+              {item && ['APPLY', 'CANCEL', 'DONE'].includes(item.status) && (
+                <button type="button" onClick={() => onChangeStatus(item.rNo)}>
+                  {t('상태변경')}
+                </button>
+              )}
+            </StatusButtonWrapper>
           </td>
           <td>
             <Link href="/">
@@ -164,11 +162,13 @@ const ItemStyledBox = styled(ItemBox)`
     border-collapse: collapse;
   }
 
-  thead, tbody {
+  thead,
+  tbody {
     width: 100%;
   }
 
-  th, td {
+  th,
+  td {
     padding: 10px;
     text-align: center;
     border-bottom: 1px solid #ddd;
