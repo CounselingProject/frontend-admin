@@ -131,8 +131,6 @@ const ApplicationListContainer = ({ params, searchParams }) => {
   ); */
   }
 
-  const onRecord = useCallback((rno, record) => {}, []);
-
   return (
     <>
       <SearchBox
@@ -145,7 +143,6 @@ const ApplicationListContainer = ({ params, searchParams }) => {
         items={items}
         onChangeStatus={onChangeStatus}
         onSubmit={onSubmit}
-        onRecord={onRecord}
       />
       {pagination && (
         <Pagination onClick={onChangePage} pagination={pagination} />
