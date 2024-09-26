@@ -7,11 +7,12 @@ import React, {
 } from 'react';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { apiList } from '../apis/apiInfo';
-import apiStatus from '../apis/apiStatus';
 import ApplicationList from '../components/ApplicationList';
 import SearchBox from '../components/SearchBox';
 import Pagination from '../../../commons/components/Pagination';
 import { useTranslation } from 'react-i18next';
+import { produce } from 'immer';
+import { changeStatus } from '../apis/apiStatus';
 
 function getQueryString(searchParams) {
   const qs = {};
@@ -82,7 +83,34 @@ const ApplicationListContainer = ({ params, searchParams }) => {
   }, []);
 
   /* 진행상태 변경 함수*/
-  const onChangeStatus = useCallback(
+  const onChangeStatus = useCallback((e, rno) => {
+    const status = e.target.value;
+    setItems(
+      produce((draft) =>
+        draft.forEach((item) => {
+          if (item.rno === rno) {
+            item.status = status;
+          }
+        }),
+      ),
+    );
+  }, []);
+
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!confirm(t('정말_변경하겠습니까?'))) {
+        return;
+      }
+
+      changeStatus(items); // 상태 변경 처리
+    },
+    [items, t],
+  );
+
+  {
+    /*const onChangeStatus = useCallback(
+  
     (rNo) => {
       (async () => {
         try {
@@ -100,7 +128,8 @@ const ApplicationListContainer = ({ params, searchParams }) => {
       }
     },
     [t],
-  );
+  ); */
+  }
 
   return (
     <>
@@ -110,7 +139,11 @@ const ApplicationListContainer = ({ params, searchParams }) => {
         onSubmit={onSubmitSearch}
         onToggle={onToggle}
       />
-      <ApplicationList items={items} onChangeStatus={onChangeStatus} />
+      <ApplicationList
+        items={items}
+        onChangeStatus={onChangeStatus}
+        onSubmit={onSubmit}
+      />
       {pagination && (
         <Pagination onClick={onChangePage} pagination={pagination} />
       )}
