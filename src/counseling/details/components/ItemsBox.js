@@ -103,9 +103,9 @@ const ItemBox = ({ item, className, onChange, onChangeStatus }) => {
           </td>
           <td className="userName">{item?.userName}</td>
           <td className="counselingType">
-            {item?.counselingType === 'PERSONAL'
-              ? counselingType.PERSONAL
-              : counselingType.GROUP}
+            {item?.counselingType === 'GROUP'
+              ? counselingType.GROUP
+              : counselingType.PERSONAL}
           </td>
           <td className="category">
             {item?.category === 'PROFESSOR' && personalCategory.PROFESSOR}
@@ -129,12 +129,12 @@ const ItemBox = ({ item, className, onChange, onChangeStatus }) => {
           </td>
           <td>
             <StatusButtonWrapper>
-                {item && ['APPLY', 'CANCEL', 'DONE'].includes(item.status) && (
-                  <button type="button" onClick={() => onChangeStatus(item.rNo)}>
-                    {t('상태변경')}
-                  </button>
-                )}
-              </StatusButtonWrapper>
+              {item && ['APPLY', 'CANCEL', 'DONE'].includes(item.status) && (
+                <button type="button" onClick={() => onChangeStatus(item.rNo)}>
+                  {t('상태변경')}
+                </button>
+              )}
+            </StatusButtonWrapper>
           </td>
           <td>
             <Link href="/">
@@ -162,11 +162,13 @@ const ItemStyledBox = styled(ItemBox)`
     border-collapse: collapse;
   }
 
-  thead, tbody {
+  thead,
+  tbody {
     width: 100%;
   }
 
-  th, td {
+  th,
+  td {
     padding: 10px;
     text-align: center;
     border-bottom: 1px solid #ddd;
