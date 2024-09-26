@@ -23,7 +23,7 @@ const GroupListContainer = ({ searchParams }) => {
   useLayoutEffect(() => {
     setMenuCode('counseling');
     setSubMenuCode('group');
-    setMainTitle(t('집단_상담_프로그램_목록'));
+    setMainTitle(t('집단상담_프로그램_목록'));
   }, [setMenuCode, setSubMenuCode, setMainTitle, t]);
 
   useEffect(() => {
