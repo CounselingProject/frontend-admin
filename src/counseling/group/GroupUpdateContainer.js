@@ -8,10 +8,9 @@ import React, {
 import { useRouter } from 'next/navigation';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { useTranslation } from 'react-i18next';
-import GroupRegisterForm from '../components/GroupRegisterForm';
+import GroupRegisterForm from './components/GroupRegisterForm';
 import { deleteFile } from '@/commons/libs/apiFile';
-
-import { getCounselors,registerGroupProgram, updateGroupProgram } from '../apis/apiCounseling';
+import { getCounselors, registerGroupProgram, updateGroupProgram } from './apis/apiCounseling';
 
 const GroupUpdateContainer = ({ params }) => {
   const { setMenuCode, setSubMenuCode, setMainTitle } = getCommonActions();
@@ -29,7 +28,6 @@ const GroupUpdateContainer = ({ params }) => {
   }, [setMenuCode, setSubMenuCode, cNo, setMainTitle, t]);
 
   const [form, setForm] = useState({
-
     cNo,
     gid: '' + Date.now(),
     counselingLimit: 1,
@@ -38,11 +36,9 @@ const GroupUpdateContainer = ({ params }) => {
   const [counselors, setCounselors] = useState([]);
   const [skey, setSkey] = useState('');
 
-
   useEffect(() => {
     (async () => {
       try {
-
         // 상담사 조회
         const counselors = await getCounselors(skey);
         setCounselors(counselors);
@@ -152,7 +148,6 @@ const GroupUpdateContainer = ({ params }) => {
       onFileDelete={onFileDelete}
       onClick={onClick}
       counselors={counselors}
-
     />
   );
 };
