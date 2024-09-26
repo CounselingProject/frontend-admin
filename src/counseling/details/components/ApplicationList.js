@@ -12,7 +12,7 @@ import Modal from '@/commons/components/Modal';
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin: 30px auto;
 `;
 
 const StyledThead = styled.thead`
@@ -55,7 +55,11 @@ const StyledTd = styled.td`
   }
 `;
 
-const FormBox = styled.form``;
+const FormBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
   const { t } = useTranslation();
@@ -107,7 +111,7 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                   },
                   i,
                 ) => {
-                  const endTime = addHours(rDateTime, 1); // 1시간 더한 종료시간 계산
+                  const endTime = addHours(rDateTime, 1);
                   return (
                     <tr key={`item_${rno}`}>
                       <StyledTd>{rno}</StyledTd>
@@ -162,7 +166,12 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
             )}
           </tbody>
         </StyledTable>
-        <StyledButton type="submit" variant="green" width="100%">
+        <StyledButton
+          className="status"
+          type="submit"
+          variant="green"
+          width="150px"
+        >
           {t('변경하기')}
         </StyledButton>
       </FormBox>

@@ -26,13 +26,12 @@ const FormBox = styled.form`
   dt {
     font-size: 1.1rem;
     font-weight: bold;
-    width: 70px;
+    width: 100px;
     flex-shrink: 0;
   }
 
   dd {
     flex-grow: 1;
-    margin:
     width: 100%;
   }
 
@@ -43,27 +42,38 @@ const FormBox = styled.form`
     border: 1px solid #dcdcdc;
     border-radius: 3px;
   }
+
+  button {
+    margin: 0 auto;
+  }
 `;
 
 const InputWrapper = styled.div`
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
-
-  select {
-    width: 30%; /* sopt select box의 너비 조정 */
-  }
-
-  input {
-    width: 70%; /* skey input의 너비 조정 */
-  }
+  width: 110px;
 `;
 
 const StyledInput = styled.input`
   border: 1px solid #dcdcdc;
   padding: 10px;
   border-radius: 3px;
-  width: 50%;
+  width: 100%;
+`;
+
+const SoptWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  select {
+    width: 100px;
+  }
+
+  input {
+    width: 700px;
+  }
 `;
 
 const SearchBox = ({ search, onChange, onSubmit, onToggle }) => {
@@ -147,8 +157,8 @@ const SearchBox = ({ search, onChange, onSubmit, onToggle }) => {
           </span>
         </dd>
       </dl>
-      <InputWrapper>
-        <select name="sopt" value={search?.sopt} onChange={onChange}>
+      <SoptWrapper>
+        <select className="sopt" value={search?.sopt} onChange={onChange}>
           <option value="ALL">{t('통합검색')}</option>
           <option value="COUNSELING_NAME">{t('상담명')}</option>
           <option value="COUNSELOR">{t('상담사명')}</option>
@@ -156,12 +166,12 @@ const SearchBox = ({ search, onChange, onSubmit, onToggle }) => {
         </select>
         <input
           type="text"
-          name="skey"
+          className="skey"
           value={search.skey}
           onChange={onChange}
         />
-      </InputWrapper>
-      <StyledButton type="submit" variant="green">
+      </SoptWrapper>
+      <StyledButton type="submit" variant="green" width="150px">
         {t('검색')}
       </StyledButton>
     </FormBox>
