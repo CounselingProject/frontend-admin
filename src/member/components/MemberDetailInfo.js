@@ -26,7 +26,7 @@ const MemberDetailInfo = ({ member, onClose }) => {
         <p>{t('가입일')}: {member.createdAt}</p>
         <p>{t('휴대전화번호')}: {member.mobile}</p>
         <p>{t('생년월일')}: {member.birth}</p>
-        <p>{t('주소')}: {member.address} {member.addressSub}</p>
+        <p>{t('주소')}: {member.address} {member.addresssub}</p>
         <p>{t('우편번호')}: {member.zonecode}</p>
         <p>{t('성별')}: {member.gender}</p>
         <p>{t('회원유형')}: {userType[member.userType]}</p>
