@@ -64,7 +64,13 @@ const StyledTd = styled.td`
 
 const FormBox = styled.form``;
 
-const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
+const ApplicationList = ({
+  items,
+  className,
+  onSubmit,
+  onChangeStatus,
+  onRecord,
+}) => {
   const { t } = useTranslation();
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
@@ -97,6 +103,7 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                   counselorEmail,
                   rDateTime,
                   status,
+                  record,
                 },
                 i,
               ) => (
@@ -128,9 +135,9 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                     </select>
                   </StyledTd>
                   <StyledTd>
-                    <Link href="/">
-                      <button>{t('상담일지_작성')}</button>
-                    </Link>
+                    <button type="button" onClick={() => onRecord(rno, record)}>
+                      {t('상담일지_작성')}
+                    </button>
                   </StyledTd>
                 </tr>
               ),
