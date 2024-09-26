@@ -108,29 +108,6 @@ const ApplicationListContainer = ({ params, searchParams }) => {
     [items, t],
   );
 
-  {
-    /*const onChangeStatus = useCallback(
-  
-    (rNo) => {
-      (async () => {
-        try {
-          const res = await apiStatus(rNo);
-          setItems((items) =>
-            items.map((items) => (items.rNo === rNo ? res : items)),
-          );
-        } catch (err) {
-          console.error(err);
-        }
-      })();
-
-      if (!window.alert(t('변경되었습니다.'))) {
-        return;
-      }
-    },
-    [t],
-  ); */
-  }
-
   return (
     <>
       <SearchBox

@@ -15,7 +15,7 @@ const StyledTable = styled.table`
 `;
 
 const StyledThead = styled.thead`
-  background-color: #3f51b5;
+  background-color: ${({ theme }) => theme.colors.green};
 `;
 
 const StyledTh = styled.th`
@@ -45,19 +45,11 @@ const StyledTd = styled.td`
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.white};
 
     &:hover {
       opacity: 0.8;
-    }
-
-    &.edit {
-      background-color: #4a90e2;
-      color: white;
-    }
-
-    &.delete {
-      background-color: #e74c3c;
-      color: white;
     }
   }
 `;
@@ -145,8 +137,8 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                     </StyledTd>
                     <StyledTd>
                       {record && (
-                        <button type="button" onClick={() => onRecord(record)}>
-                          {t('상담일지_보기')}
+                        <button type="button" className="record" onClick={() => onRecord(record)}>
+                          {t('조회')}
                         </button>
                       )}
                     </StyledTd>
