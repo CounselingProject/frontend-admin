@@ -10,13 +10,25 @@ import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { useTranslation } from 'react-i18next';
 import GroupRegisterForm from '../components/GroupRegisterForm';
 import { deleteFile } from '@/commons/libs/apiFile';
+<<<<<<< HEAD
 import { getCounselors,registerGroupProgram, updateGroupProgram } from '../apis/apiCounseling';
+=======
+import {
+  getCounselors,
+  registerGroupProgram,
+  updateGroupProgram,
+} from '../apis/apiCounseling';
+>>>>>>> master
 
 const GroupUpdateContainer = ({ params }) => {
   const { setMenuCode, setSubMenuCode, setMainTitle } = getCommonActions();
   const { cNo } = params;
   const { t } = useTranslation();
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> master
   const router = useRouter();
 
   useLayoutEffect(() => {
@@ -28,17 +40,30 @@ const GroupUpdateContainer = ({ params }) => {
   }, [setMenuCode, setSubMenuCode, cNo, setMainTitle, t]);
 
   const [form, setForm] = useState({
+<<<<<<< HEAD
     gid: '' + Date.now(),
     counselingLimit: 1, // 인원수 1명이상
   });
   const [errors, setErrors] = useState({});
   const [counselors, setCounselors] = useState([]);
   const [skey, setSkey] = useState(''); // 상담사 검색키
+=======
+    cNo,
+    gid: '' + Date.now(),
+    counselingLimit: 1,
+  });
+  const [errors, setErrors] = useState({});
+  const [counselors, setCounselors] = useState([]);
+  const [skey, setSkey] = useState('');
+>>>>>>> master
 
   useEffect(() => {
     (async () => {
       try {
+<<<<<<< HEAD
         // 상담사 조회
+=======
+>>>>>>> master
         const counselors = await getCounselors(skey);
         setCounselors(counselors);
       } catch (err) {
@@ -50,7 +75,10 @@ const GroupUpdateContainer = ({ params }) => {
   const onChange = useCallback((e) => {
     const name = e.target.name;
     const value = e.target.value;
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
     if (name === 'skey') {
       setSkey(value);
     } else {
@@ -145,8 +173,13 @@ const GroupUpdateContainer = ({ params }) => {
       onChange={onChange}
       onSubmit={onSubmit}
       onFileDelete={onFileDelete}
+<<<<<<< HEAD
       onClick={onClick}
       counselors={counselors}
+=======
+      counselors={counselors}
+      onClick={onClick}
+>>>>>>> master
     />
   );
 };

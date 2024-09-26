@@ -58,9 +58,13 @@ main > .main-content {
 
 .ck-editor__editable {
   height: 350px;
+<<<<<<< HEAD
   border: 1px solid #ccc; 
   border-radius: 4px;
   padding: 10px; 
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
   margin-top: 5px; 
 }
+=======
+}
+>>>>>>> master

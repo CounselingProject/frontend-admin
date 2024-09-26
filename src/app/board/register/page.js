@@ -8,4 +8,8 @@ const BoardRegisterPage = ({ params }) => {
   );
 };
 
+<<<<<<< HEAD
 export default BoardRegisterPage;
+=======
+export default BoardRegisterPage;
+>>>>>>> master
