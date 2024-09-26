@@ -9,9 +9,10 @@ export default function saveProcess(url, method, form) {
           resolve(res.data.data);
           return;
         }
-
         reject(res.data);
       } catch (err) {
+        console.error(err);
+
         reject(err);
       }
     })();

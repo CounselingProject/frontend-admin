@@ -15,6 +15,7 @@ const UpdateContainer = ({ params }) => {
   const { bid } = params;
   const { t } = useTranslation();
   const { setMenuCode, setSubMenuCode, setMainTitle } = getCommonActions();
+
   const router = useRouter();
 
   const [form, setForm] = useState({
@@ -38,6 +39,7 @@ const UpdateContainer = ({ params }) => {
     commentAccessType: 'ALL',
     privateAccess: false,
   });
+
 
   const [errors, setErrors] = useState({});
 

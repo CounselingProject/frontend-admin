@@ -11,7 +11,7 @@ const Menus = styled.aside`
 
   a {
       display: block;
-      background: ${({ theme }) => theme.colors.primary};
+      background: ${({ theme }) => theme.colors.green};
       line-height: 60px;
       font-size: ${({ theme }) => theme.fontSizes.mediumLarge}px;
       color: ${({ theme }) => theme.colors.white};

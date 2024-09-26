@@ -8,9 +8,13 @@ const colors = {
   danger: '#ed1c24',
   dangerDark: '#a50d12',
   gray: '#6b6b6b',
+  green: '#005d4f',
   black: '#000000',
   white: '#ffffff',
   text: '#000000',
+
+  blue: '#0069b4',
+  green: '#005d4f',
 };
 
 export default colors;

@@ -1,6 +1,7 @@
 'use client';
 import React, { useLayoutEffect } from 'react';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
+
 import PostForm from '../components/PostForm';
 
 const PostsContainer = ({ searchParams }) => {

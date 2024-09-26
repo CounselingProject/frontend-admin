@@ -1,3 +1,4 @@
+
 // ListContainer.js
 'use client';
 import React, { useLayoutEffect, useEffect, useState, useCallback } from 'react';
@@ -7,8 +8,10 @@ import MemberList from '@/member/components/MemberList';
 import Pagination from '@/commons/components/Pagination';
 import MemberDetailInfo from '@/member/components/MemberDetailInfo'; // MemberDetailInfo 컴포넌트 import
 
+
 const ListContainer = () => {
   const { setMenuCode, setSubMenuCode } = getCommonActions();
+
 
   // 회원 목록 데이터를 저장할 state
   const [memberList, setMemberList] = useState([]);
@@ -19,10 +22,13 @@ const ListContainer = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
 
+
   useLayoutEffect(() => {
     setMenuCode('member');
     setSubMenuCode('list');
   }, [setMenuCode, setSubMenuCode]);
+
+
 
   useEffect(() => {
     const fetchMemberList = async () => {
@@ -89,6 +95,7 @@ const ListContainer = () => {
       )}
     </>
   );
+
 };
 
 export default React.memo(ListContainer);

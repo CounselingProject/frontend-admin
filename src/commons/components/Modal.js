@@ -21,7 +21,7 @@ const ModalContainer = styled.div`
   padding: 20px; // 안쪽 여백
   border-radius: 8px; // 모서리 둥글게
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // 그림자 효과
-  width: 400px; // 너비 설정
+  width: ${({ width }) => `${width ?? 400}px`}; // 너비 설정
 `;
 
 // 닫기 버튼 스타일 정의
@@ -33,10 +33,10 @@ const CloseButton = styled.button`
   margin-bottom: 10px; // 아래쪽 여백
 `;
 
-const Modal = ({ onClose, children }) => {
+const Modal = ({ onClose, children, width }) => {
   return (
     <ModalOverlay>
-      <ModalContainer>
+      <ModalContainer width={width}>
         <CloseButton onClick={onClose}>✖</CloseButton> {/* 닫기 버튼 */}
         {children} {/* 모달 안에 들어갈 내용 */}
       </ModalContainer>

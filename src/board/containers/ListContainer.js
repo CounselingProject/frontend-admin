@@ -86,6 +86,7 @@ const ListContainer = ({ searchParams }) => {
       )}
     </section>
   );
+
 };
 
 export default React.memo(ListContainer);
