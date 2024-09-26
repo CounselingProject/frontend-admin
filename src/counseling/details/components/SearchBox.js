@@ -14,10 +14,26 @@ const FormBox = styled.form`
   margin: 20px auto;
   border-radius: 8px;
 
+  dl {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
   dt {
     font-size: 1.1rem;
     font-weight: bold;
-    margin-bottom: 5px;
+    width: 70px;
+    flex-shrink: 0;
+  }
+
+  dd {
+    flex-grow: 1;
+    margin:
+    width: 100%;
   }
 
   select,
@@ -32,6 +48,15 @@ const FormBox = styled.form`
 const InputWrapper = styled.div`
   display: flex;
   gap: 10px;
+  margin-bottom: 10px;
+
+  select {
+    width: 30%; /* sopt select box의 너비 조정 */
+  }
+
+  input {
+    width: 70%; /* skey input의 너비 조정 */
+  }
 `;
 
 const StyledInput = styled.input`
@@ -145,12 +170,23 @@ const SearchBox = ({ search, onChange, onSubmit, onToggle }) => {
           </span>
         </dd>
       </dl>
-      <input type="text" name="skey" value={search.skey} onChange={onChange} />
-      <div>
-        <StyledButton type="submit" variant="primary">
-          {t('검색')}
-        </StyledButton>
-      </div>
+      <InputWrapper>
+        <select name="sopt" value={search?.sopt} onChange={onChange}>
+          <option value="ALL">{t('통합검색')}</option>
+          <option value="COUNSELING_NAME">{t('상담명')}</option>
+          <option value="COUNSELOR">{t('상담사명')}</option>
+          <option value="USER">{t('신청자명')}</option>
+        </select>
+        <input
+          type="text"
+          name="skey"
+          value={search.skey}
+          onChange={onChange}
+        />
+      </InputWrapper>
+      <StyledButton type="submit" variant="primary">
+        {t('검색')}
+      </StyledButton>
     </FormBox>
   );
 };
