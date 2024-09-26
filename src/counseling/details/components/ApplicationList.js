@@ -112,9 +112,9 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                     <StyledTd>{format(rDateTime, 'HH:mm')}~</StyledTd>
                     <StyledTd>{userName}</StyledTd>
                     <StyledTd>
-                      {counselingType
-                        ? counselingTypes[counselingType]
-                        : t('개인상담')}
+                    {counselingType
+                        ? counselingTypes.GROUP
+                        : counselingTypes.PERSONAL}
                     </StyledTd>
                     <StyledTd>
                       {category && personalCategory[category]}
