@@ -25,8 +25,8 @@ const Wrapper = styled.div`
     line-height: 33px;
     text-align: center;
     font-size: 1.15rem;
-    border: 1px solid #000;
-    border-radius: 3px;
+    border: 1px solid ${({ theme }) => theme.colors.green};
+    border-radius: 2.5px;
     cursor: pointer;
   }
   .page + .page {
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   }
 
   .page.on {
-    background: #000;
+    background: ${({ theme }) => theme.colors.green};
     color: #fff;
   }
 `;

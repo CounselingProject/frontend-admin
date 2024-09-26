@@ -19,7 +19,7 @@ const HeaderBox = styled.header`
         font-size: ${({ theme }) => theme.fontSizes.normal};
 
         &.on {
-          color: ${({ theme }) => theme.colors.primary};
+          color: ${({ theme }) => theme.colors.green};
         }
       }
     }

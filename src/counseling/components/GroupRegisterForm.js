@@ -24,22 +24,21 @@ import {
 
 import 'ckeditor5/ckeditor5.css';
 
-
 const FormBox = styled.form`
-  max-width: 900px; 
+  max-width: 900px;
   padding: 20px;
-  background-color: #f9f9f9; 
+  background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
   dl {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     align-items: center;
     margin-bottom: 15px;
 
     dt {
-      width: 30%; 
+      width: 30%;
       font-weight: bold;
       font-size: 1rem;
     }
@@ -48,7 +47,7 @@ const FormBox = styled.form`
       flex-grow: 1;
       max-width: 100%;
       padding: 5px;
-      width: 70%; 
+      width: 70%;
     }
   }
 `;
@@ -100,8 +99,7 @@ const GroupRegisterForm = ({
             onChange={onChange}
           />
 
-             <StyledMessage variant="danger">
-
+          <StyledMessage variant="danger">
             {errors?.counselingName}
           </StyledMessage>
         </dd>
@@ -137,7 +135,7 @@ const GroupRegisterForm = ({
           <FileUpload
             imageOnly={true}
             gid={form?.gid}
-            color="primary"
+            color="green"
             callback={insertImageCallback}
           >
             {t('이미지_첨부')}
@@ -175,11 +173,10 @@ const GroupRegisterForm = ({
         </dd>
       </dl>
 
-
       <dl>
         <dt>{t('상담사명')}</dt>
         <dd>
-        <StyledInput
+          <StyledInput
             type="text"
             name="counselorName"
             value={form?.counselorName ?? ''}
@@ -200,8 +197,7 @@ const GroupRegisterForm = ({
             readOnly
           />
 
-           <StyledMessage variant="danger">
-
+          <StyledMessage variant="danger">
             {errors?.counselorEmail}
           </StyledMessage>
         </dd>
@@ -209,8 +205,7 @@ const GroupRegisterForm = ({
       <dl>
         <dt>{t('집단상담 프로그램 신청 시작일')}</dt>
         <dd>
-
-        <StyledInput
+          <StyledInput
             type="date"
             name="reservationSdate"
             value={form?.reservationSdate ?? ''}
@@ -238,8 +233,7 @@ const GroupRegisterForm = ({
       <dl>
         <dt>{t('상담일시')}</dt>
 
-          <dd>
-
+        <dd>
           <StyledInput
             type="text"
             name="counselingDate"
@@ -252,7 +246,6 @@ const GroupRegisterForm = ({
         </dd>
       </dl>
 
-
       <dl>
         <dt>{t('인원')}</dt>
         <dd>
@@ -260,9 +253,9 @@ const GroupRegisterForm = ({
             name="counselingLimit"
             onChange={onChange}
             value={form?.counselingLimit ?? 1}
-
-          >  {/* 인원 10명 제한 - 1명이상 인원부터 받을 수 있게 */}
-
+          >
+            {' '}
+            {/* 인원 10명 제한 - 1명이상 인원부터 받을 수 있게 */}
             {[...new Array(10).keys()].map((i) => (
               <option key={`counselingLimit_${i + 1}`} value={i + 1}>{`${
                 i + 1
@@ -274,7 +267,7 @@ const GroupRegisterForm = ({
           </StyledMessage>
         </dd>
       </dl>
-      <StyledButton variant="primary">{t('등록')}</StyledButton>
+      <StyledButton variant="green">{t('등록')}</StyledButton>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
