@@ -14,26 +14,15 @@ import { useTranslation } from 'react-i18next';
 import { produce } from 'immer';
 import { changeStatus } from '../apis/apiStatus';
 
-function getQueryString(searchParams) {
-  const qs = {};
-  if (searchParams.size > 0) {
-    for (const [k, v] of searchParams) {
-      qs[k] = v;
-    }
-  }
-  return qs;
-}
-
 const ApplicationListContainer = ({ params, searchParams }) => {
-  const { setMenuCode, setSubMenuCode } = getCommonActions();
+  const { setMenuCode, setSubMenuCode, setMainTitle } = getCommonActions();
 
-  const [search, setSearch] = useState(() => getQueryString(searchParams));
-  const [searchTmp, setSearchTmp] = useState({
-    // 기본값 통합검색으로 설정
-    copt: [],
-    sopt: 'ALL',
-    page: 1,
-  });
+  searchParams.page = searchParams?.page ?? 1;
+  searchParams.sopt = searchParams?.sopt ?? 'ALL';
+  searchParams.skey = searchParams?.skey ?? '';
+  const [search, setSearch] = useState(searchParams);
+  const [searchTmp, setSearchTmp] = useState(searchParams);
+
   const [items, setItems] = useState([]);
   const [pagination, setPagination] = useState({});
   const { rNo } = params;
@@ -43,7 +32,8 @@ const ApplicationListContainer = ({ params, searchParams }) => {
   useLayoutEffect(() => {
     setMenuCode('application');
     setSubMenuCode('details');
-  }, [setMenuCode, setSubMenuCode]);
+    setMainTitle(t('상담_접수_목록'));
+  }, [setMenuCode, setSubMenuCode, setMainTitle, t]);
 
   useEffect(() => {
     (async () => {
@@ -61,20 +51,21 @@ const ApplicationListContainer = ({ params, searchParams }) => {
   const onChangeSearch = useCallback((e) => {
     setSearchTmp((search) => ({
       ...search,
-      [e.target.name]: [e.target.value],
+      [e.target.name]: e.target.value,
     }));
   }, []);
 
   const onSubmitSearch = useCallback(
     (e) => {
       e.preventDefault();
-      setSearch({ ...searchTmp, page: 1 });
+      console.log('searchTmp', searchTmp);
+      setSearch((search) => ({ ...search, ...searchTmp, page: 1 }));
     },
     [searchTmp],
   );
 
   const onToggle = useCallback((name, value) => {
-    setSearch((search) => ({ ...search, [name]: value }));
+    setSearchTmp((search) => ({ ...search, [name]: value }));
   }, []);
 
   /* 페이지 변경 함수 */
@@ -111,7 +102,7 @@ const ApplicationListContainer = ({ params, searchParams }) => {
   return (
     <>
       <SearchBox
-        search={search}
+        search={searchTmp}
         onChange={onChangeSearch}
         onSubmit={onSubmitSearch}
         onToggle={onToggle}

@@ -68,7 +68,6 @@ const StyledInput = styled.input`
 
 const SearchBox = ({ search, onChange, onSubmit, onToggle }) => {
   const { t } = useTranslation();
-
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <dl>
@@ -94,33 +93,11 @@ const SearchBox = ({ search, onChange, onSubmit, onToggle }) => {
         </dd>
       </dl>
       <dl>
-        <dt>{t('상담시간')}</dt>
-        <dd>
-          <InputWrapper>
-            <StyledInput
-              type="time"
-              name="sTime"
-              value={search?.sTime ?? ''}
-              onChange={onChange}
-              placeholder={t('시작시간')}
-            />
-            ~
-            <StyledInput
-              type="time"
-              name="eTime"
-              value={search?.eTime ?? ''}
-              onChange={onChange}
-              placeholder={t('종료시간')}
-            />
-          </InputWrapper>
-        </dd>
-      </dl>
-      <dl>
         <dt>{t('상담종류')}</dt>
         <dd>
           <select
             name="counselingType"
-            value={search?.counselingType}
+            value={search?.counselingType ?? ''}
             onChange={onChange}
           >
             <option value="">{t('전체')}</option>
