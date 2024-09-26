@@ -1,6 +1,6 @@
 import requestData from '@/commons/libs/requestData';
 import saveProcess from '@/commons/libs/saveProcess';
-<<<<<<< HEAD
+
 
 // 상담사 조회 : 집단상담 프로그램 조회 시 
 export const getCounselors = (skey) =>
@@ -17,19 +17,7 @@ export const updateGroupProgram = (form) =>
 // 집단상담 프로그램 목록
 export const getList = (search) => {
     search = search ?? {};
-=======
-export const getCounselors = (skey) =>
-  requestData(`/member/admin/counselors?skey=${skey}`);
 
-export const registerGroupProgram = (form) =>
-  saveProcess('/counseling/admin/counseling', 'POST', form);
-
-export const updateGroupProgram = (form) =>
-  saveProcess('/counseling/admin/counseling', 'PATCH', form);
-
-export const getList = (search) => {
-  search = search ?? {};
->>>>>>> master
 
   const qs = [];
 
@@ -42,7 +30,4 @@ export const getList = (search) => {
 
   return requestData(url);
 };
-<<<<<<< HEAD
 
-=======
->>>>>>> master

@@ -5,17 +5,11 @@ import { StyledInput } from '@/commons/components/inputs/StyledInput';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import { useTranslation } from 'react-i18next';
 import FileUpload from '@/commons/components/FileUpload';
-<<<<<<< HEAD
 import { IoIosRadioButtonOn, IoIosRadioButtonOff } from 'react-icons/io';
 import FileItems from '@/commons/components/FileItems';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import StyledMessage from '@/commons/components/StyledMessage';
-=======
-import FileItems from '@/commons/components/FileItems';
-import { IoIosRadioButtonOn, IoIosRadioButtonOff } from 'react-icons/io';
-import StyledMessage from '@/commons/components/StyledMessage';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
->>>>>>> master
+
 import {
   ClassicEditor,
   Bold,
@@ -47,19 +41,8 @@ const FormBox = styled.form`
       padding: 5px;
     }
   }
-<<<<<<< HEAD
-=======
+`
 
-  /* CKEditor 스타일 조정 */
-  .ck-editor {
-    border: 1px solid #ccc; /* CKEditor 테두리 */
-    border-radius: 4px; /* 둥근 모서리 */
-    padding: 10px; /* 패딩 추가 */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 음영 효과 */
-    margin-top: 5px; /* 레이블과 CKEditor 간 간격 */
-  }
->>>>>>> master
-`;
 
 const GroupRegisterForm = ({
   form,
@@ -78,10 +61,7 @@ const GroupRegisterForm = ({
       if (!files || files.length === 0) {
         return;
       }
-<<<<<<< HEAD
-=======
 
->>>>>>> master
       const source = files.map((file) => file.fileUrl);
 
       editor.execute('insertImage', { source });
@@ -110,11 +90,9 @@ const GroupRegisterForm = ({
             value={form?.counselingName ?? ''}
             onChange={onChange}
           />
-<<<<<<< HEAD
+
              <StyledMessage variant="danger">
-=======
-          <StyledMessage variant="danger">
->>>>>>> master
+
             {errors?.counselingName}
           </StyledMessage>
         </dd>
@@ -187,18 +165,13 @@ const GroupRegisterForm = ({
             ))}
         </dd>
       </dl>
-<<<<<<< HEAD
+
 
       <dl>
         <dt>{t('상담사명')}</dt>
         <dd>
         <StyledInput
-=======
-      <dl>
-        <dt>{t('상담사명')}</dt>
-        <dd>
-          <StyledInput
->>>>>>> master
+
             type="text"
             name="counselorName"
             value={form?.counselorName ?? ''}
@@ -218,11 +191,9 @@ const GroupRegisterForm = ({
             value={form?.counselorEmail ?? ''}
             readOnly
           />
-<<<<<<< HEAD
+
            <StyledMessage variant="danger">
-=======
-          <StyledMessage variant="danger">
->>>>>>> master
+
             {errors?.counselorEmail}
           </StyledMessage>
         </dd>
@@ -230,11 +201,8 @@ const GroupRegisterForm = ({
       <dl>
         <dt>{t('집단상담 프로그램 신청 시작일')}</dt>
         <dd>
-<<<<<<< HEAD
+
         <StyledInput
-=======
-          <StyledInput
->>>>>>> master
             type="date"
             name="reservationSdate"
             value={form?.reservationSdate ?? ''}
@@ -261,11 +229,9 @@ const GroupRegisterForm = ({
       </dl>
       <dl>
         <dt>{t('상담일시')}</dt>
-<<<<<<< HEAD
+
           <dd>
-=======
-        <dd>
->>>>>>> master
+
           <StyledInput
             type="text"
             name="counselingDate"
@@ -277,10 +243,8 @@ const GroupRegisterForm = ({
           </StyledMessage>
         </dd>
       </dl>
-<<<<<<< HEAD
 
-=======
->>>>>>> master
+
       <dl>
         <dt>{t('인원')}</dt>
         <dd>
@@ -288,11 +252,9 @@ const GroupRegisterForm = ({
             name="counselingLimit"
             onChange={onChange}
             value={form?.counselingLimit ?? 1}
-<<<<<<< HEAD
+
           >  {/* 인원 10명 제한 - 1명이상 인원부터 받을 수 있게 */}
-=======
-          >
->>>>>>> master
+
             {[...new Array(10).keys()].map((i) => (
               <option key={`counselingLimit_${i + 1}`} value={i + 1}>{`${
                 i + 1
