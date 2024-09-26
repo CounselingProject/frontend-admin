@@ -17,7 +17,7 @@ const SubMenuBox = styled.nav`
     font-size: ${({ theme }) => theme.fontSizes.medium}px;
   }
   a.on {
-    background: ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) => theme.colors.green};
     color: ${({ theme }) => theme.colors.white};
   }
 `;

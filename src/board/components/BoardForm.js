@@ -568,6 +568,7 @@ const BoardForm = ({ form, errors, onSubmit, onChange }) => {
       <GroupButton type="submit">
         {form?.mode === 'update' ? t('수정하기') : t('등록하기')}
       </GroupButton>
+
     </FormBox>
   );
 };

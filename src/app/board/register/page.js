@@ -8,4 +8,6 @@ const BoardRegisterPage = ({ params }) => {
   );
 };
 
+
 export default BoardRegisterPage;
+
