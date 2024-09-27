@@ -52,7 +52,6 @@ function getSubMenus(menuCode) {
       return [
         { code: 'list', name: '게시판 목록', url: '/board/list' },
         { code: 'register', name: '게시판 등록', url: '/board/register' },
-        { code: 'posts', name: '게시글 관리', url: '/board/posts' },
       ];
     case 'counseling': // 집단상담 관리
       return [
