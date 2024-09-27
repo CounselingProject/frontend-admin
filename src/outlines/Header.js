@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import cookies from 'react-cookies';
 import { useTranslation } from 'react-i18next';
@@ -27,12 +27,18 @@ const HeaderBox = styled.header`
 `;
 
 const Header = () => {
+  const [login, setLogin] = useState(false);
   const { t } = useTranslation();
   const { showHeader } = getCommonStates();
   const {
     states: { isLogin, userInfo, isAdmin },
     actions: { setIsLogin, setIsAdmin, setUserInfo },
   } = getUserContext();
+
+  useEffect(() => {
+    setLogin(isLogin);
+  }, [isLogin]);
+
   const onLogout = useCallback(() => {
     setIsLogin(false);
     setIsAdmin(false);
@@ -45,7 +51,7 @@ const Header = () => {
       <HeaderBox>
         <section className="site-top">
           <div className="layout-width">
-            {isLogin ? (
+            {login ? (
               <>
                 {/* 로그인 상태 */}
                 <span>
