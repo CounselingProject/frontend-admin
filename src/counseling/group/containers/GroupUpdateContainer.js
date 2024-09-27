@@ -65,8 +65,8 @@ const GroupUpdateContainer = ({ params }) => {
 
       // 유효성 검사
       const requiredFields = {
-        counselingName: t('프로그램명을_입력해주세요.'),
-        counselingDes: t('설명을_입력하세요.'),
+        counselingName: t('프로그램명을_입력해주세요'),
+        counselingDes: t('설명을_입력하세요'),
         counselorName: t('상담사를_선택하세요.'),
         counselorEmail: t('상담사를_선택하세요.'),
       };
@@ -107,7 +107,7 @@ const GroupUpdateContainer = ({ params }) => {
 
   const onFileDelete = useCallback(
     (seq) => {
-      if (!confirm(t('정말_삭제하겠습니까?'))) {
+      if (!confirm(t('정말_삭제하겠습니까'))) {
         return;
       }
 

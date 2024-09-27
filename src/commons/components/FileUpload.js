@@ -32,19 +32,19 @@ const FileUpload = ({
       const files = e.target.files;
       try {
         if (files.length === 0) {
-          throw new Error(t('파일을_선택하세요.'));
+          throw new Error(t('파일을_선택하세요'));
         }
 
         if (imageOnly) {
           for (const file of files) {
             if (!file.type.includes('image/')) {
-              throw new Error(t('이미지_형식의_파일만_업로드하세요.'));
+              throw new Error(t('이미지_형식의_파일만_업로드하세요'));
             }
           }
         }
 
         if (!gid?.trim()) {
-          throw new Error(t('필수항목(gid)_누락'));
+          throw new Error(t('필수항목_gid_누락'));
         }
 
         const formData = new FormData();
