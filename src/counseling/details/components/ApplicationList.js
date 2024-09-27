@@ -126,7 +126,9 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                           : counselingTypes.PERSONAL}
                       </StyledTd>
                       <StyledTd>
-                        {category && personalCategory[category]}
+                        {category
+                          ? personalCategory[category]
+                          : counselingTypes.GROUP}
                       </StyledTd>
                       <StyledTd>{counselingName}</StyledTd>
                       <StyledTd>

@@ -156,7 +156,7 @@ const GroupRegisterForm = ({
             type="text"
             name="skey"
             onChange={onChange}
-            placeholder={t('검색어를_입력하세요.')}
+            placeholder={t('검색어를_입력하세요')}
           />
           {counselors &&
             counselors.length > 0 &&
