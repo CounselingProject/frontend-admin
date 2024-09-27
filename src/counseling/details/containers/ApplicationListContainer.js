@@ -7,12 +7,12 @@ import React, {
 } from 'react';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { apiList } from '../apis/apiInfo';
+import { changeStatus } from '../apis/apiStatus';
 import ApplicationList from '../components/ApplicationList';
 import SearchBox from '../components/SearchBox';
 import Pagination from '../../../commons/components/Pagination';
 import { useTranslation } from 'react-i18next';
 import { produce } from 'immer';
-import { changeStatus } from '../apis/apiStatus';
 
 const ApplicationListContainer = ({ params, searchParams }) => {
   const { setMenuCode, setSubMenuCode, setMainTitle } = getCommonActions();
