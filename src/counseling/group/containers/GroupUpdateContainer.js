@@ -8,9 +8,9 @@ import React, {
 import { useRouter } from 'next/navigation';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { useTranslation } from 'react-i18next';
-import GroupRegisterForm from './components/GroupRegisterForm';
+import GroupRegisterForm from '../components/GroupRegisterForm';
 import { deleteFile } from '@/commons/libs/apiFile';
-import { getCounselors, registerGroupProgram, updateGroupProgram } from './apis/apiCounseling';
+import { getCounselors ,registerGroupProgram, updateGroupProgram } from '../apis/apiCounseling';
 
 const GroupUpdateContainer = ({ params }) => {
   const { setMenuCode, setSubMenuCode, setMainTitle } = getCommonActions();
