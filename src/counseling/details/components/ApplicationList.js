@@ -1,21 +1,22 @@
 'use client';
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { format } from 'date-fns';
+import { format, addHours } from 'date-fns';
 import styled from 'styled-components';
 import counselingTypes from '../../constants/counselingType';
 import personalCategory from '../../constants/personalCategory';
 import statuses from '../../constants/status';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import Modal from '@/commons/components/Modal';
+
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin: 30px auto;
 `;
 
 const StyledThead = styled.thead`
-  background-color: #3f51b5;
+  background-color: ${({ theme }) => theme.colors.green};
 `;
 
 const StyledTh = styled.th`
@@ -45,24 +46,20 @@ const StyledTd = styled.td`
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.white};
 
     &:hover {
       opacity: 0.8;
     }
-
-    &.edit {
-      background-color: #4a90e2;
-      color: white;
-    }
-
-    &.delete {
-      background-color: #e74c3c;
-      color: white;
-    }
   }
 `;
 
-const FormBox = styled.form``;
+const FormBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
   const { t } = useTranslation();
@@ -81,7 +78,7 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
   return (
     <>
       <FormBox onSubmit={onSubmit} autoComplete="off">
-        <StyledTable className={className}>
+        <StyledTable>
           <StyledThead>
             <tr>
               <StyledTh>신청번호</StyledTh>
@@ -113,45 +110,54 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                     record,
                   },
                   i,
-                ) => (
-                  <tr key={`item_${rno}`}>
-                    <StyledTd>{rno}</StyledTd>
-                    <StyledTd>{format(rDateTime, 'yyyy.MM.dd')}</StyledTd>
-                    <StyledTd>{format(rDateTime, 'HH:mm')}~</StyledTd>
-                    <StyledTd>{userName}</StyledTd>
-                    <StyledTd>
-                      {counselingType
-                        ? counselingTypes[counselingType]
-                        : t('개인상담')}
-                    </StyledTd>
-                    <StyledTd>
-                      {category && personalCategory[category]}
-                    </StyledTd>
-                    <StyledTd>{counselingName}</StyledTd>
-                    <StyledTd>
-                      {counselorName}({counselorEmail})
-                    </StyledTd>
-                    <StyledTd>
-                      <select
-                        value={status}
-                        onChange={(e) => onChangeStatus(e, rno)}
-                      >
-                        {Object.keys(statuses).map((s) => (
-                          <option key={`status_${i}_${s}`} value={s}>
-                            {statuses[s]}
-                          </option>
-                        ))}
-                      </select>
-                    </StyledTd>
-                    <StyledTd>
-                      {record && (
-                        <button type="button" onClick={() => onRecord(record)}>
-                          {t('상담일지_보기')}
-                        </button>
-                      )}
-                    </StyledTd>
-                  </tr>
-                ),
+                ) => {
+                  const endTime = addHours(rDateTime, 1);
+                  return (
+                    <tr key={`item_${rno}`}>
+                      <StyledTd>{rno}</StyledTd>
+                      <StyledTd>{format(rDateTime, 'yyyy.MM.dd')}</StyledTd>
+                      <StyledTd>
+                        {format(rDateTime, 'HH:mm')}~{format(endTime, 'HH:mm')}
+                      </StyledTd>
+                      <StyledTd>{userName}</StyledTd>
+                      <StyledTd>
+                        {counselingType
+                          ? counselingTypes.GROUP
+                          : counselingTypes.PERSONAL}
+                      </StyledTd>
+                      <StyledTd>
+                        {category && personalCategory[category]}
+                      </StyledTd>
+                      <StyledTd>{counselingName}</StyledTd>
+                      <StyledTd>
+                        {counselorName}({counselorEmail})
+                      </StyledTd>
+                      <StyledTd>
+                        <select
+                          value={status}
+                          onChange={(e) => onChangeStatus(e, rno)}
+                        >
+                          {Object.keys(statuses).map((s) => (
+                            <option key={`status_${i}_${s}`} value={s}>
+                              {statuses[s]}
+                            </option>
+                          ))}
+                        </select>
+                      </StyledTd>
+                      <StyledTd>
+                        {record && (
+                          <button
+                            type="button"
+                            className="record"
+                            onClick={() => onRecord(record)}
+                          >
+                            {t('조회')}
+                          </button>
+                        )}
+                      </StyledTd>
+                    </tr>
+                  );
+                },
               )
             ) : (
               <tr>
@@ -160,7 +166,12 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
             )}
           </tbody>
         </StyledTable>
-        <StyledButton type="submit" variant="primary">
+        <StyledButton
+          className="status"
+          type="submit"
+          variant="green"
+          width="150px"
+        >
           {t('변경하기')}
         </StyledButton>
       </FormBox>
