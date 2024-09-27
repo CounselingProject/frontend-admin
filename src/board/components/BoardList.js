@@ -9,7 +9,7 @@ const StyledTable = styled.table`
 `;
 
 const StyledThead = styled.thead`
-  background-color: #3f51b5;
+  background-color: ${({ theme }) => theme.colors.green};
 `;
 
 const StyledTh = styled.th`
