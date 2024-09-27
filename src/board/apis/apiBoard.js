@@ -1,5 +1,6 @@
 import requestData from '../../commons/libs/requestData';
 import saveProcess from '@/commons/libs/saveProcess';
+
 export const regist = (form) => saveProcess(`/board/admin/save`, 'POST', form);
 
 export const update = (form) => saveProcess(`/board/admin/save`, 'PATCH', form);
