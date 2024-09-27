@@ -67,7 +67,7 @@ const StyledTable = styled.table`
 
 const StyledTh = styled.th`
   padding: 12px;
-  background-color: #3f51b5;
+  background-color: #005d4f;
   border-bottom: 1px solid white;
   height: 60px;
   color: white;
@@ -565,7 +565,7 @@ const BoardForm = ({ form, errors, onSubmit, onChange }) => {
         </tbody>
       </StyledTable>
 
-      <GroupButton type="submit">
+      <GroupButton type="submit" vari>
         {form?.mode === 'update' ? t('수정하기') : t('등록하기')}
       </GroupButton>
 
