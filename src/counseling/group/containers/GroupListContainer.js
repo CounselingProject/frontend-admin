@@ -11,6 +11,7 @@ import Pagination from '@/commons/components/Pagination';
 import GroupListItems from '../components/GroupListItems';
 import { getList } from '../apis/apiCounseling';
 
+
 const GroupListContainer = ({ searchParams }) => {
   const { setMenuCode, setSubMenuCode, setMainTitle } = getCommonActions();
   searchParams.page = searchParams.page ?? 1;
