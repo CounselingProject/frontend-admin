@@ -90,7 +90,7 @@ const ApplicationListContainer = ({ params, searchParams }) => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      if (!confirm(t('정말_변경하겠습니까?'))) {
+      if (!confirm(t('정말_변경하겠습니까'))) {
         return;
       }
 
