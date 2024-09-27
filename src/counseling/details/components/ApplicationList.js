@@ -126,7 +126,7 @@ const ApplicationList = ({ items, className, onSubmit, onChangeStatus }) => {
                           : counselingTypes.PERSONAL}
                       </StyledTd>
                       <StyledTd>
-                        {category && personalCategory[category]}
+                        {category ? personalCategory[category] : t('집단 상담')}
                       </StyledTd>
                       <StyledTd>{counselingName}</StyledTd>
                       <StyledTd>
