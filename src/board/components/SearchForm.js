@@ -27,7 +27,7 @@ const SearchInput = styled.input`
 
 const SearchButton = styled.button`
   padding: 10px 20px;
-  background-color: #3f51b5;
+  background-color: ${({ theme }) => theme.colors.green};
   color: white;
   border: none;
   border-radius: 4px;

@@ -9,7 +9,7 @@ const StyledTable = styled.table`
 `;
 
 const StyledThead = styled.thead`
-  background-color: #3f51b5;
+  background-color: ${({ theme }) => theme.colors.green};
 `;
 
 const StyledTh = styled.th`
@@ -45,7 +45,7 @@ const StyledTd = styled.td`
     }
 
     &.edit {
-      background-color: #4a90e2;
+      background-color: #005d4f;
       color: white;
     }
 
@@ -92,11 +92,6 @@ const BoardList = ({ items, onDelete }) => {
                   >
                     삭제
                   </button>
-                  <a href={`${clientUrl}/board/list/${bid}`} target="_blank">
-                    <button type="button" className="edit">
-                      미리보기
-                    </button>
-                  </a>
                 </StyledTd>
               </tr>
             ))

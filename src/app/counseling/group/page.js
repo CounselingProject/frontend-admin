@@ -1,5 +1,5 @@
 import AdminOnlyContainer from '@/member/containers/AdminOnlyContainer';
-import GroupListContainer from '@/counseling/group/GroupListContainer';
+import GroupListContainer from '@/counseling/group/containers/GroupListContainer';
 
 
 const CounselingGroupPage = ({searchParams}) => {
