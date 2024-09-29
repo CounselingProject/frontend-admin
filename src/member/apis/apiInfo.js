@@ -1,4 +1,5 @@
 import requestData from '@/commons/libs/requestData';
+import apiRequest from '@/commons/libs/apiRequest';
 
 // 회원 목록 조회 API
 export const apiGetMemberList = (search) => {
@@ -34,3 +35,19 @@ export const apiGetMemberInfo = (email) => {
   // requestData 함수를 사용하여 API 요청
   return requestData(url);
 };
+
+export const apiDeleteMember = (seq) => new Promise((resolve, reject) => {
+  apiRequest(`/member/admin/delete/${seq}`, 'DELETE')
+    .then((res) => {
+      // 성공 여부는 status나 success 필드를 기준으로 확인
+      if (res.data.success === true || res.data.status === 'OK') {
+        resolve(res.data); // 성공 시 resolve
+      } else {
+        reject(res.data); // 실패 시 reject
+      }
+    })
+    .catch((err) => {
+      reject(err); // 오류 처리
+    });
+});
+

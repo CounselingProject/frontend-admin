@@ -51,7 +51,7 @@ const LoadingMessage = styled.div`
     font-weight: bold;
 `;
 
-const MemberList = ({ memberList = [], loading, error, onEmailClick }) => {
+const MemberList = ({ memberList = [], loading, error, onEmailClick,onDeleteClick  }) => {
   const { t } = useTranslation();
 
   if (loading) {
@@ -69,9 +69,13 @@ const MemberList = ({ memberList = [], loading, error, onEmailClick }) => {
         <Thead>
           <Tr>
             <Th>{t('ID')}</Th>
+            <Th>{t('회원유형')}</Th>
             <Th>{t('이름')}</Th>
             <Th>{t('이메일')}</Th>
+            <Th>{t('휴댑전화번호')}</Th>
             <Th>{t('가입일')}</Th>
+            <Th>{t('탈퇴일')}</Th>
+            <Th>{t('회원탈퇴')}</Th>
           </Tr>
         </Thead>
         <tbody>
@@ -79,16 +83,22 @@ const MemberList = ({ memberList = [], loading, error, onEmailClick }) => {
           memberList.map((member) => (
             <Tr key={`member_${member.seq}`}>
               <Td>{member.seq}</Td>
+              <Td>{member.userType}</Td>
               <Td>{member.userName}</Td>
-              <Td onClick={() => onEmailClick(member)} style={{ cursor: 'pointer', color: 'blue' }}>
+              <Td onClick={() => onEmailClick(member)} style={{ cursor: 'pointer', color: 'green' }}>
                 {member.email}
               </Td>
+              <Td>{member.mobile}</Td>
               <Td>{member.createdAt}</Td>
+              <Td>{member.deletedAt}</Td>
+              <Td>
+                <button onClick={() => onDeleteClick(member) } style={{ cursor: 'pointer'}}>{t('탈퇴')}</button>
+              </Td>
             </Tr>
           ))
         ) : (
           <Tr>
-            <Td colSpan="4">{t('회원 목록이 없습니다.')}</Td>
+            <Td colSpan="4">{t('회원_목록이_없습니다.')}</Td>
           </Tr>
         )}
         </tbody>
