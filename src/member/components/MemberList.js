@@ -1,44 +1,59 @@
 import React from 'react';
 import { useTranslation } from 'next-i18next';
 import styled from 'styled-components';
+import { StyledButton } from '@/commons/components/buttons/StyledButton';
 
 // 스타일 컴포넌트 정의
-const Wrapper = styled.div`
-    width: 100%;
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px auto;
 `;
 
-const Table = styled.table`
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+const StyledThead = styled.thead`
+  background-color: ${({ theme }) => theme.colors.green};
 `;
 
-const Thead = styled.thead`
-    background-color: #f1f1f1;
+const StyledTh = styled.th`
+  padding: 12px;
+  color: white;
+  text-align: center;
+  border-right: 1px solid white;
+
+  &:last-child {
+    border-right: none;
+  }
 `;
 
-const Th = styled.th`
-    padding: 12px;
-    border-bottom: 2px solid #ddd;
-    font-weight: bold;
-    text-align: left;
-`;
+const StyledTd = styled.td`
+  padding: 12px;
+  border-bottom: 1px solid white;
+  border-right: 1px solid white;
+  text-align: center;
 
-const Td = styled.td`
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-`;
+  &:last-child {
+    border-right: none;
+  }
 
-const Tr = styled.tr`
-    &:nth-child(even) {
-        background-color: #f9f9f9;
+  button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.white};
+
+    &:hover {
+      opacity: 0.8;
     }
+  }
+`;
+
+const FormBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const ErrorMessage = styled.div`
@@ -63,47 +78,46 @@ const MemberList = ({ memberList = [], loading, error, onEmailClick,onDeleteClic
   }
 
   return (
-    <Wrapper>
-      <h1>{t('회원 목록')}</h1>
-      <Table>
-        <Thead>
-          <Tr>
-            <Th>{t('ID')}</Th>
-            <Th>{t('회원유형')}</Th>
-            <Th>{t('이름')}</Th>
-            <Th>{t('이메일')}</Th>
-            <Th>{t('휴댑전화번호')}</Th>
-            <Th>{t('가입일')}</Th>
-            <Th>{t('탈퇴일')}</Th>
-            <Th>{t('회원탈퇴')}</Th>
-          </Tr>
-        </Thead>
+    <FormBox>
+      <StyledTable>
+        <StyledThead>
+          <tr>
+            <StyledTh>{t('ID')}</StyledTh>
+            <StyledTh>{t('회원유형')}</StyledTh>
+            <StyledTh>{t('이름')}</StyledTh>
+            <StyledTh>{t('이메일')}</StyledTh>
+            <StyledTh>{t('휴댑전화번호')}</StyledTh>
+            <StyledTh>{t('가입일')}</StyledTh>
+            <StyledTh>{t('탈퇴일')}</StyledTh>
+            <StyledTh>{t('회원탈퇴')}</StyledTh>
+          </tr>
+        </StyledThead>
         <tbody>
         {memberList.length > 0 ? (
           memberList.map((member) => (
-            <Tr key={`member_${member.seq}`}>
-              <Td>{member.seq}</Td>
-              <Td>{member.userType}</Td>
-              <Td>{member.userName}</Td>
-              <Td onClick={() => onEmailClick(member)} style={{ cursor: 'pointer', color: 'green' }}>
+            <tr key={`member_${member.seq}`}>
+              <StyledTd>{member.seq}</StyledTd>
+              <StyledTd>{member.userType}</StyledTd>
+              <StyledTd>{member.userName}</StyledTd>
+              <StyledTd onClick={() => onEmailClick(member)} style={{ cursor: 'pointer', color: 'green' }}>
                 {member.email}
-              </Td>
-              <Td>{member.mobile}</Td>
-              <Td>{member.createdAt}</Td>
-              <Td>{member.deletedAt}</Td>
-              <Td>
-                <button onClick={() => onDeleteClick(member) } style={{ cursor: 'pointer'}}>{t('탈퇴')}</button>
-              </Td>
-            </Tr>
+              </StyledTd>
+              <StyledTd>{member.mobile}</StyledTd>
+              <StyledTd>{member.createdAt}</StyledTd>
+              <StyledTd>{member.deletedAt}</StyledTd>
+              <StyledTd>
+                <StyledButton onClick={() => onDeleteClick(member) } style={{ cursor: 'pointer'}}>{t('탈퇴')}</StyledButton>
+              </StyledTd>
+            </tr>
           ))
         ) : (
-          <Tr>
-            <Td colSpan="4">{t('회원_목록이_없습니다.')}</Td>
-          </Tr>
+          <tr>
+            <StyledTd colSpan="4">{t('회원_목록이_없습니다.')}</StyledTd>
+          </tr>
         )}
         </tbody>
-      </Table>
-    </Wrapper>
+      </StyledTable>
+    </FormBox>
   );
 };
 
